@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ember & Age - Steakhouse website
 
-## Getting Started
+Next.js 16 (App Router) + Tailwind CSS v4 + Motion + Lenis. Concept: "The Art of Fire & Time".
 
-First, run the development server:
+## Chạy dự án
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev          # http://localhost:3000
+npm run build && npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Đặt `NEXT_PUBLIC_SITE_URL` (ví dụ `https://emberandage.vn`) để canonical URL, Open Graph, sitemap và JSON-LD dùng đúng tên miền.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Cấu trúc
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Đường dẫn | Nội dung |
+|---|---|
+| `src/app/page.tsx` | Trang chủ: Hero, Brand Story, Cut Showcase + drawer, Atmosphere (cuộn ngang), CTA đặt bàn |
+| `src/app/craft` | Timeline ủ khô 30/60/90 ngày, bếp trưởng, bento lửa củi |
+| `src/app/menu` | Tab thực đơn, bộ trực quan độ chín (slider), gợi ý vang |
+| `src/app/gallery` | Masonry có bộ lọc + lightbox (phím mũi tên) |
+| `src/app/private-dining` | Phòng riêng, form đặt bàn (react-hook-form + zod + server action), bản đồ |
+| `src/lib/data.ts` | Toàn bộ nội dung: phần thịt, thực đơn, độ chín, gallery, phòng |
+| `src/lib/site.ts` | Tên, địa chỉ, giờ mở cửa, điều hướng, nhãn CTA |
+| `src/app/globals.css` | Design tokens (màu, font, easing), grain overlay |
 
-## Learn More
+## Việc còn lại trước khi lên production
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/app/private-dining/actions.ts` mới chỉ xác nhận yêu cầu, chưa lưu hay gửi đi. Cần nối với hệ thống đặt bàn hoặc email.
+- Ảnh trong `public/images` là ảnh Unsplash dùng làm placeholder. Nên thay bằng ảnh chụp thật của nhà hàng.
+- Hero đang dùng ảnh tĩnh với hiệu ứng Ken Burns và than hồng bay. Nếu có video quay chậm, thay vào `src/components/home/hero.tsx`.
+- Nội dung (giá, địa chỉ, số điện thoại, tên bếp trưởng) là dữ liệu mẫu.
