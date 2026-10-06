@@ -7,11 +7,15 @@ import { ButtonLink } from "@/components/ui/button-link";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Embers } from "@/components/home/embers";
 import { cta } from "@/lib/site";
+import { useI18n } from "@/i18n/client";
+import { Rich } from "@/i18n/rich";
 import heroImg from "../../../public/images/hero-sliced.jpg";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 export function Hero() {
+  const { dict } = useI18n();
+  const t = dict.home.hero;
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -31,7 +35,7 @@ export function Hero() {
         <div className="absolute inset-0 animate-kenburns">
           <Image
             src={heroImg}
-            alt="Lát bò ủ khô nướng than, lõi hồng đỏ, xếp trên thớt gỗ"
+            alt={t.imageAlt}
             fill
             preload
             placeholder="blur"
@@ -53,21 +57,21 @@ export function Hero() {
       >
         <div className="max-w-2xl">
           <motion.div {...item(0.2)}>
-            <Eyebrow>Dry-aged steakhouse</Eyebrow>
+            <Eyebrow>{t.eyebrow}</Eyebrow>
           </motion.div>
           <motion.h1
             {...item(0.35)}
             className="mt-6 pb-2 font-display text-5xl font-light leading-[1.02] tracking-tight text-cream sm:text-6xl lg:text-[5.5rem]"
           >
-            Nghệ thuật của Lửa <span className="italic text-gold">và Thời gian</span>
+            <Rich text={t.title} />
           </motion.h1>
           <motion.p {...item(0.55)} className="mt-6 max-w-md text-base leading-relaxed text-cream/75 md:text-lg">
-            Bò ủ khô đến 90 ngày, nướng chậm trên than gỗ nhãn. Mỗi tối chỉ phục vụ 48 chỗ ngồi.
+            {t.intro}
           </motion.p>
           <motion.div {...item(0.7)} className="mt-10 flex flex-wrap items-center gap-3">
-            <ButtonLink href={cta.reserve.href}>{cta.reserve.label}</ButtonLink>
-            <ButtonLink href={cta.menu.href} variant="ghost">
-              {cta.menu.label}
+            <ButtonLink href={cta.reserve}>{dict.cta.reserve}</ButtonLink>
+            <ButtonLink href={cta.menu} variant="ghost">
+              {dict.cta.menu}
             </ButtonLink>
           </motion.div>
         </div>

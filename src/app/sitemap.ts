@@ -1,18 +1,20 @@
 import type { MetadataRoute } from "next";
-import { site } from "@/lib/site";
+import { site, routes } from "@/lib/site";
+import { localizePath, locales } from "@/i18n/config";
+import { languageAlternates } from "@/i18n/metadata";
 
+/** One entry per locale and route, each carrying the hreflang alternates of its siblings. */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = [
-    { path: "", priority: 1 },
-    { path: "/menu", priority: 0.9 },
-    { path: "/private-dining", priority: 0.9 },
-    { path: "/craft", priority: 0.7 },
-    { path: "/gallery", priority: 0.6 },
-  ];
-  return routes.map((r) => ({
-    url: `${site.url}${r.path}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly",
-    priority: r.priority,
-  }));
+  const absolute = (map: Record<string, string>) =>
+    Object.fromEntries(Object.entries(map).map(([lang, path]) => [lang, `${site.url}${path}`]));
+
+  return routes.flatMap((r) =>
+    locales.map((locale) => ({
+      url: `${site.url}${localizePath(locale, r.path)}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: r.priority,
+      alternates: { languages: absolute(languageAlternates(r.path)) },
+    })),
+  );
 }

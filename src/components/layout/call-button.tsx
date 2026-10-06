@@ -3,14 +3,17 @@
 import { motion, useReducedMotion } from "motion/react";
 import { Phone } from "@phosphor-icons/react";
 import { site } from "@/lib/site";
+import { useI18n } from "@/i18n/client";
+import { format } from "@/i18n/format";
 
 /** Floating call button shown on every page. The label slides out on hover / focus. */
 export function CallButton() {
   const reduce = useReducedMotion();
+  const { dict } = useI18n();
   return (
     <motion.a
       href={site.phoneHref}
-      aria-label={`Gọi nhà hàng ${site.phone}`}
+      aria-label={format(dict.contact.callAria, { phone: site.phone })}
       className="group fixed bottom-5 right-5 z-20 flex items-center rounded-full bg-gold p-1.5 text-obsidian shadow-[0_18px_40px_-12px_rgba(197,160,89,0.55)] transition-colors duration-500 ease-silk hover:bg-gold-bright active:scale-[0.97] md:bottom-8 md:right-8"
       initial={reduce ? false : { opacity: 0, y: 24, scale: 0.8 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}

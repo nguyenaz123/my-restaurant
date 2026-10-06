@@ -6,19 +6,23 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import { ArrowUpRight } from "@phosphor-icons/react";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { useI18n } from "@/i18n/client";
+import { Rich } from "@/i18n/rich";
 
 const spaces = [
-  { image: "/images/dining-room.jpg", title: "Phòng ăn chính", text: "48 chỗ ngồi, ghế da và đèn bàn đặt thấp để ánh sáng dồn vào đĩa." },
-  { image: "/images/interior-dark.jpg", title: "Sảnh trần cao", text: "Trần cao với đèn thả đồng thau rọi xuống từng bàn." },
-  { image: "/images/gold-bar.jpg", title: "Quầy bar", text: "Whisky single malt và cocktail khói trước bữa tối." },
-  { image: "/images/bar-hall.jpg", title: "Sảnh bar", text: "Trần gỗ và tủ rượu kéo dài suốt chiều dài sảnh." },
-  { image: "/images/wine-cellar.jpg", title: "The Cellar Room", text: "Phòng VIP trong hầm rượu, tối đa 14 khách." },
-  { image: "/images/table-setting.jpg", title: "Phòng tiệc riêng", text: "Bàn tiệc dưới ánh nến, ly pha lê và khăn trải trắng." },
-  { image: "/images/chef-plating.jpg", title: "Chef's Counter", text: "Sáu ghế quanh quầy bếp, ngồi sát ngọn lửa." },
-  { image: "/images/overhead-dining.jpg", title: "Sàn gạch hoa", text: "Gạch hoa trải khắp phòng ăn, đẹp nhất khi nhìn từ trên cao." },
-];
+  { id: "dining", image: "/images/dining-room.jpg" },
+  { id: "hall", image: "/images/interior-dark.jpg" },
+  { id: "bar", image: "/images/gold-bar.jpg" },
+  { id: "barHall", image: "/images/bar-hall.jpg" },
+  { id: "cellar", image: "/images/wine-cellar.jpg" },
+  { id: "private", image: "/images/table-setting.jpg" },
+  { id: "counter", image: "/images/chef-plating.jpg" },
+  { id: "floor", image: "/images/overhead-dining.jpg" },
+] as const;
 
 function Panel({ s, i }: { s: (typeof spaces)[number]; i: number }) {
+  const { dict } = useI18n();
+  const text = dict.home.atmosphere.spaces[s.id];
   return (
     // Width is capped by viewport height so image + caption always fit inside the pinned 100dvh frame.
     // Subgrid shares the image row and caption row across panels, so image bottoms and titles line up.
@@ -27,18 +31,20 @@ function Panel({ s, i }: { s: (typeof spaces)[number]; i: number }) {
         <div
           className={`relative overflow-hidden rounded-[calc(1.75rem-0.375rem)] ${i % 2 ? "aspect-[4/5]" : "aspect-[5/4]"}`}
         >
-          <Image src={s.image} alt={s.title} fill quality={70} sizes="(min-width: 768px) 50vw, 82vw" className="object-cover" />
+          <Image src={s.image} alt={text.title} fill quality={70} sizes="(min-width: 768px) 50vw, 82vw" className="object-cover" />
         </div>
       </div>
       <figcaption className="mt-5 flex flex-col gap-2 px-2">
-        <span className="font-display text-2xl text-cream md:text-3xl">{s.title}</span>
-        <span className="max-w-[40ch] text-sm leading-relaxed text-smoke">{s.text}</span>
+        <span className="font-display text-2xl text-cream md:text-3xl">{text.title}</span>
+        <span className="max-w-[40ch] text-sm leading-relaxed text-smoke">{text.text}</span>
       </figcaption>
     </figure>
   );
 }
 
 export function Atmosphere() {
+  const { dict, href } = useI18n();
+  const t = dict.home.atmosphere;
   const section = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
@@ -64,18 +70,18 @@ export function Atmosphere() {
 
   const intro = (
     <div className="row-span-2 flex w-[82vw] flex-col justify-end self-end pb-24 md:w-[34vw] md:pr-8">
-      <Eyebrow className="w-max">Không gian</Eyebrow>
+      <Eyebrow className="w-max">{t.eyebrow}</Eyebrow>
       <h2 className="mt-6 font-display text-4xl font-light leading-[1.05] text-cream md:text-6xl">
-        Ánh sáng thấp, <span className="italic text-gold">lửa ở trung tâm</span>
+        <Rich text={t.title} />
       </h2>
       <p className="mt-6 max-w-[40ch] leading-relaxed text-smoke">
-        Gỗ óc chó, đá bazan và đồng thau. Mọi góc nhìn đều hướng về lò than.
+        {t.intro}
       </p>
       <Link
-        href="/gallery"
+        href={href("/gallery")}
         className="group mt-10 inline-flex w-max items-center gap-3 text-sm text-cream transition-colors duration-500 ease-silk hover:text-gold-bright"
       >
-        Xem bộ sưu tập
+        {t.link}
         <span className="flex size-9 items-center justify-center rounded-full bg-cream/[0.06] hairline transition-transform duration-500 ease-silk group-hover:translate-x-0.5 group-hover:-translate-y-px">
           <ArrowUpRight size={14} weight="light" />
         </span>
@@ -90,7 +96,7 @@ export function Atmosphere() {
         <div className="grid snap-x snap-mandatory grid-flow-col grid-rows-[auto_auto] gap-x-6 overflow-x-auto px-4 pb-6 md:px-10">
           {intro}
           {spaces.map((s, i) => (
-            <Panel key={s.title} s={s} i={i} />
+            <Panel key={s.id} s={s} i={i} />
           ))}
         </div>
       </section>
@@ -103,7 +109,7 @@ export function Atmosphere() {
         <motion.div ref={track} style={{ x }} className="grid w-max grid-flow-col grid-rows-[auto_auto] gap-x-6 px-4 will-change-transform md:gap-x-10 md:px-10">
           {intro}
           {spaces.map((s, i) => (
-            <Panel key={s.title} s={s} i={i} />
+            <Panel key={s.id} s={s} i={i} />
           ))}
         </motion.div>
       </div>

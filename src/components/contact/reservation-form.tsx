@@ -1,20 +1,24 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useMemo, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, CheckCircle, WarningCircle } from "@phosphor-icons/react";
 import {
+  createReservationSchema,
   occasionOptions,
-  reservationSchema,
   seatingOptions,
   timeSlots,
   type Reservation,
   type ReservationInput,
 } from "@/lib/reservation-schema";
-import { submitReservation } from "@/app/private-dining/actions";
+import { submitReservation } from "@/app/[lang]/private-dining/actions";
 import { cn } from "@/lib/cn";
+import { localeMeta } from "@/i18n/config";
+import { useI18n } from "@/i18n/client";
+import { format } from "@/i18n/format";
+import { splitAccent } from "@/i18n/rich";
 
 const ease = [0.32, 0.72, 0, 1] as const;
 
@@ -56,6 +60,9 @@ function Field({
 }
 
 export function ReservationForm() {
+  const { locale, dict } = useI18n();
+  const t = dict.reservation;
+  const schema = useMemo(() => createReservationSchema(t.errors), [t.errors]);
   const [pending, startTransition] = useTransition();
   const [result, setResult] = useState<{ reference: string; data: Reservation } | null>(null);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -66,14 +73,14 @@ export function ReservationForm() {
     reset,
     formState: { errors },
   } = useForm<ReservationInput, unknown, Reservation>({
-    resolver: zodResolver(reservationSchema),
-    defaultValues: { guests: "2", seating: "Phòng ăn chính", occasion: "Không có", time: "19:00" },
+    resolver: zodResolver(schema),
+    defaultValues: { guests: "2", seating: "main", occasion: "none", time: "19:00" },
   });
 
   const onSubmit = (data: Reservation) => {
     setServerError(null);
     startTransition(async () => {
-      const res = await submitReservation({ ...data, guests: String(data.guests) });
+      const res = await submitReservation(locale, { ...data, guests: String(data.guests) });
       if (res.ok) setResult({ reference: res.reference, data });
       else setServerError(res.message);
     });
@@ -108,15 +115,28 @@ export function ReservationForm() {
             <CheckCircle size={32} weight="light" />
           </motion.span>
           <h3 className="mt-8 font-display text-4xl font-light text-cream">
-            Cảm ơn, <span className="italic text-gold">{result.data.name}</span>
+            {/* Format each run separately so a "*" typed in the name cannot change the accent markup. */}
+            {splitAccent(t.thanks).map((part, i) => {
+              const filled = format(part, { name: result.data.name });
+              return i % 2 ? (
+                <span key={i} className="italic text-gold">
+                  {filled}
+                </span>
+              ) : (
+                filled
+              );
+            })}
           </h3>
           <p className="mt-4 max-w-[46ch] leading-relaxed text-cream/75">
-            Chúng tôi đã giữ yêu cầu cho {result.data.guests} khách lúc {result.data.time}, ngày{" "}
-            {new Date(`${result.data.date}T00:00:00`).toLocaleDateString("vi-VN")}, tại {result.data.seating}. Nhân viên sẽ gọi xác
-            nhận trong vòng 2 giờ.
+            {format(t.success, {
+              guests: result.data.guests,
+              time: result.data.time,
+              date: new Date(`${result.data.date}T00:00:00`).toLocaleDateString(localeMeta[locale].intl),
+              seating: t.seatingOptions[result.data.seating],
+            })}
           </p>
           <p className="mt-6 text-sm text-smoke">
-            Mã yêu cầu: <span className="font-medium tracking-wider text-cream">{result.reference}</span>
+            {t.reference} <span className="font-medium tracking-wider text-cream">{result.reference}</span>
           </p>
           <button
             type="button"
@@ -126,7 +146,7 @@ export function ReservationForm() {
             }}
             className="mt-10 w-max rounded-full bg-cream/[0.06] px-6 py-3 text-sm text-cream hairline transition-colors duration-500 ease-silk hover:bg-cream/[0.12]"
           >
-            Gửi yêu cầu khác
+            {t.another}
           </button>
         </motion.div>
       ) : (
@@ -140,23 +160,23 @@ export function ReservationForm() {
           noValidate
           className="grid grid-cols-1 gap-6 sm:grid-cols-2"
         >
-          <Field id="name" label="Họ và tên" error={errors.name?.message} className="sm:col-span-2">
-            <input {...register("name")} {...aria("name")} autoComplete="name" className={fieldBase} placeholder="Nguyễn Minh Khang" />
+          <Field id="name" label={t.name} error={errors.name?.message} className="sm:col-span-2">
+            <input {...register("name")} {...aria("name")} autoComplete="name" className={fieldBase} placeholder={t.placeholders.name} />
           </Field>
 
-          <Field id="phone" label="Số điện thoại" error={errors.phone?.message}>
-            <input {...register("phone")} {...aria("phone")} type="tel" autoComplete="tel" inputMode="tel" className={fieldBase} placeholder="0903 412 587" />
+          <Field id="phone" label={t.phone} error={errors.phone?.message}>
+            <input {...register("phone")} {...aria("phone")} type="tel" autoComplete="tel" inputMode="tel" className={fieldBase} placeholder={t.placeholders.phone} />
           </Field>
 
-          <Field id="email" label="Email" error={errors.email?.message}>
-            <input {...register("email")} {...aria("email")} type="email" autoComplete="email" className={fieldBase} placeholder="khang@email.vn" />
+          <Field id="email" label={t.email} error={errors.email?.message}>
+            <input {...register("email")} {...aria("email")} type="email" autoComplete="email" className={fieldBase} placeholder={t.placeholders.email} />
           </Field>
 
-          <Field id="date" label="Ngày" error={errors.date?.message} helper="Nghỉ thứ Hai.">
+          <Field id="date" label={t.date} error={errors.date?.message} helper={t.dateHelper}>
             <input {...register("date")} {...aria("date")} type="date" min={minDate} className={fieldBase} />
           </Field>
 
-          <Field id="time" label="Giờ" error={errors.time?.message}>
+          <Field id="time" label={t.time} error={errors.time?.message}>
             <select {...register("time")} {...aria("time")} className={fieldBase}>
               {timeSlots.map((t) => (
                 <option key={t} value={t}>
@@ -166,37 +186,41 @@ export function ReservationForm() {
             </select>
           </Field>
 
-          <Field id="guests" label="Số khách" error={errors.guests?.message}>
+          <Field id="guests" label={t.guests} error={errors.guests?.message}>
             <select {...register("guests")} {...aria("guests")} className={fieldBase}>
               {Array.from({ length: 14 }, (_, i) => i + 1).map((n) => (
                 <option key={n} value={n}>
-                  {n} khách
+                  {format(t.guestsOption, { n })}
                 </option>
               ))}
             </select>
           </Field>
 
-          <Field id="seating" label="Khu vực" error={errors.seating?.message}>
+          <Field id="seating" label={t.seating} error={errors.seating?.message}>
             <select {...register("seating")} {...aria("seating")} className={fieldBase}>
               {seatingOptions.map((s) => (
-                <option key={s}>{s}</option>
+                <option key={s} value={s}>
+                  {t.seatingOptions[s]}
+                </option>
               ))}
             </select>
           </Field>
 
-          <Field id="occasion" label="Dịp đặc biệt" error={errors.occasion?.message} className="sm:col-span-2">
+          <Field id="occasion" label={t.occasion} error={errors.occasion?.message} className="sm:col-span-2">
             <select {...register("occasion")} {...aria("occasion")} className={fieldBase}>
               {occasionOptions.map((o) => (
-                <option key={o}>{o}</option>
+                <option key={o} value={o}>
+                  {t.occasionOptions[o]}
+                </option>
               ))}
             </select>
           </Field>
 
           <Field
             id="notes"
-            label="Ghi chú"
+            label={t.notes}
             error={errors.notes?.message}
-            helper="Dị ứng thực phẩm, độ chín mong muốn hoặc yêu cầu trang trí."
+            helper={t.notesHelper}
             className="sm:col-span-2"
           >
             <textarea {...register("notes")} {...aria("notes")} rows={3} className={cn(fieldBase, "resize-none")} />
@@ -210,7 +234,7 @@ export function ReservationForm() {
           )}
 
           <div className="flex flex-col gap-4 pt-2 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-xs text-smoke">Chúng tôi chỉ dùng thông tin này để xác nhận đặt bàn.</p>
+            <p className="text-xs text-smoke">{t.privacy}</p>
             <button
               type="submit"
               disabled={pending}
@@ -225,7 +249,7 @@ export function ReservationForm() {
                   transition={{ duration: 1.1, repeat: Infinity, ease: [0.45, 0, 0.55, 1] }}
                 />
               )}
-              <span className="relative">{pending ? "Đang gửi" : "Gửi yêu cầu"}</span>
+              <span className="relative">{pending ? t.sending : t.submit}</span>
               <span className="relative flex size-9 items-center justify-center rounded-full bg-obsidian/10 transition-transform duration-500 ease-silk group-hover:translate-x-0.5 group-hover:-translate-y-px">
                 <ArrowUpRight size={16} weight="light" />
               </span>

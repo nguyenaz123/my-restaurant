@@ -1,8 +1,12 @@
+"use client";
+
 import Link from "next/link";
-import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowUpRight } from "@phosphor-icons/react";
 import { cn } from "@/lib/cn";
+import { useI18n } from "@/i18n/client";
 
 type Props = {
+  /** Internal paths are given unprefixed ("/menu"); the current locale is added here. */
   href: string;
   children: React.ReactNode;
   variant?: "gold" | "ghost";
@@ -11,6 +15,7 @@ type Props = {
 
 /** Pill CTA with the trailing icon nested in its own circular island. */
 export function ButtonLink({ href, children, variant = "gold", className }: Props) {
+  const { href: localize } = useI18n();
   const external = href.startsWith("http") || href.startsWith("tel:") || href.startsWith("mailto:");
   const classes = cn(
     "group inline-flex items-center gap-3 rounded-full py-2 pl-6 pr-2 text-sm font-medium whitespace-nowrap",
@@ -40,7 +45,7 @@ export function ButtonLink({ href, children, variant = "gold", className }: Prop
     );
   }
   return (
-    <Link href={href} className={classes}>
+    <Link href={localize(href)} className={classes}>
       {children}
       {icon}
     </Link>

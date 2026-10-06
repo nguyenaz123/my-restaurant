@@ -6,6 +6,8 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { menu, menuCategories, type MenuCategory, type MenuItem } from "@/lib/data";
 import { cn } from "@/lib/cn";
 import { MenuItemDrawer } from "@/components/menu/menu-item-drawer";
+import { useI18n } from "@/i18n/client";
+import { formatPrice } from "@/i18n/format";
 
 const ease = [0.32, 0.72, 0, 1] as const;
 
@@ -15,6 +17,8 @@ export function MenuTabs({ header }: { header?: React.ReactNode }) {
   const [active, setActive] = useState<MenuItem | null>(null);
   const [open, setOpen] = useState(false);
   const reduce = useReducedMotion();
+  const { dict } = useI18n();
+  const t = dict.menu;
   const data = menu[cat];
 
   return (
@@ -22,24 +26,24 @@ export function MenuTabs({ header }: { header?: React.ReactNode }) {
       <div className="mx-auto max-w-[1400px] px-4 md:px-10">
         {header ?? (
           <h2 id="menu-title" className="sr-only">
-            Thực đơn
+            {t.srTitle}
           </h2>
         )}
 
         <div
           role="tablist"
-          aria-label="Danh mục thực đơn"
+          aria-label={t.tabsLabel}
           className="-mx-4 flex gap-1 overflow-x-auto px-4 pb-2 md:mx-0 md:w-max md:rounded-full md:bg-cream/[0.03] md:p-1.5 md:hairline"
         >
           {menuCategories.map((c) => {
-            const active = c.id === cat;
+            const active = c === cat;
             return (
               <button
-                key={c.id}
+                key={c}
                 role="tab"
                 aria-selected={active}
                 aria-controls="menu-panel"
-                onClick={() => setCat(c.id)}
+                onClick={() => setCat(c)}
                 className={cn(
                   "relative shrink-0 whitespace-nowrap rounded-full px-5 py-2.5 text-sm transition-colors duration-500 ease-silk",
                   active ? "text-obsidian" : "text-smoke hover:text-cream",
@@ -52,7 +56,7 @@ export function MenuTabs({ header }: { header?: React.ReactNode }) {
                     transition={{ type: "spring", stiffness: 300, damping: 32 }}
                   />
                 )}
-                <span className="relative">{c.label}</span>
+                <span className="relative">{t.categories[c].label}</span>
               </button>
             );
           })}
@@ -87,11 +91,14 @@ export function MenuTabs({ header }: { header?: React.ReactNode }) {
                 exit={{ opacity: 0, y: -12 }}
                 transition={{ duration: 0.5, ease }}
               >
-                <p className="max-w-[50ch] leading-relaxed text-smoke">{data.intro}</p>
+                <p className="max-w-[50ch] leading-relaxed text-smoke">{t.categories[cat].intro}</p>
                 <ul className="mt-10 space-y-9">
-                  {data.items.map((item, i) => (
+                  {data.items.map((item, i) => {
+                    const text = t.items[item.id];
+                    const meta = text.meta ?? item.meta;
+                    return (
                     <motion.li
-                      key={item.name}
+                      key={item.id}
                       initial={reduce ? false : { opacity: 0, y: 16 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 0.05 + i * 0.06, ease }}
@@ -109,21 +116,22 @@ export function MenuTabs({ header }: { header?: React.ReactNode }) {
                             }}
                             className="text-left transition-colors duration-500 ease-silk after:absolute after:inset-0 after:content-[''] group-hover:text-gold-bright"
                           >
-                            {item.name}
+                            {text.name}
                           </button>
                         </h3>
                         <span aria-hidden className="mb-1.5 flex-1 border-b border-dotted border-cream/20" />
-                        <span className="whitespace-nowrap text-gold-bright">{item.price}</span>
+                        <span className="whitespace-nowrap text-gold-bright">{formatPrice(item.price, dict.format, item.priceFrom)}</span>
                       </div>
                       <p className="mt-1.5 text-sm text-smoke">
-                        {item.detail}
-                        {item.meta && <span className="text-cream/50">, {item.meta}</span>}
+                        {text.detail}
+                        {meta && <span className="text-cream/50">, {meta}</span>}
                       </p>
                       {item.signature && (
-                        <p className="mt-2 font-display text-base italic text-gold">Món đặc trưng của nhà hàng</p>
+                        <p className="mt-2 font-display text-base italic text-gold">{dict.common.signature}</p>
                       )}
                     </motion.li>
-                  ))}
+                    );
+                  })}
                 </ul>
               </motion.div>
             </AnimatePresence>

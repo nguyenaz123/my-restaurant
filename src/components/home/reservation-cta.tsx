@@ -4,8 +4,12 @@ import { ButtonLink } from "@/components/ui/button-link";
 import { Reveal } from "@/components/ui/reveal";
 import { cta, site } from "@/lib/site";
 import { AddressLink } from "@/components/ui/address-link";
+import { Rich } from "@/i18n/rich";
+import { getDictionary } from "@/i18n/server";
 
-export function ReservationCta() {
+export async function ReservationCta() {
+  const dict = await getDictionary();
+  const t = dict.home.reserve;
   return (
     <section aria-labelledby="reserve-title" className="px-2 py-28 md:px-4 md:py-40">
       <div className="relative mx-auto max-w-[1600px] overflow-hidden rounded-[2rem] bg-wine-deep">
@@ -22,13 +26,13 @@ export function ReservationCta() {
         <div className="relative grid gap-14 px-6 py-24 md:px-16 md:py-32 lg:grid-cols-12 lg:items-end">
           <Reveal className="lg:col-span-7">
             <h2 id="reserve-title" className="font-display text-5xl font-light leading-[1.02] text-cream md:text-7xl">
-              Một bàn bên ngọn lửa <span className="italic text-gold-bright">đang chờ bạn</span>
+              <Rich text={t.title} accentClassName="italic text-gold-bright" />
             </h2>
             <p className="mt-6 max-w-[46ch] leading-relaxed text-cream/75">
-              Chúng tôi nhận đặt bàn trước 30 ngày. Tối thứ Sáu và thứ Bảy thường kín chỗ trước một tuần.
+              {t.intro}
             </p>
             <div className="mt-10">
-              <ButtonLink href={cta.reserve.href}>{cta.reserve.label}</ButtonLink>
+              <ButtonLink href={cta.reserve}>{dict.cta.reserve}</ButtonLink>
             </div>
           </Reveal>
 
@@ -37,7 +41,7 @@ export function ReservationCta() {
               <div className="rounded-[calc(1.75rem-0.375rem)] bg-obsidian/70 p-7 inner-glow">
                 <AddressLink full className="mb-6 border-b border-cream/10 pb-6 text-cream" />
                 <dl className="space-y-5 text-sm">
-                  {site.hours.map((h) => (
+                  {dict.contact.hours.map((h) => (
                     <div key={h.days} className="flex justify-between gap-6">
                       <dt className="text-smoke">{h.days}</dt>
                       <dd className="text-cream">{h.time}</dd>

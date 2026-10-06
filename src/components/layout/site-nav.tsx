@@ -9,12 +9,16 @@ import { ArrowUpRight } from "@phosphor-icons/react";
 import { cn } from "@/lib/cn";
 import { cta, navLinks, site } from "@/lib/site";
 import { AddressLink } from "@/components/ui/address-link";
+import { LocaleMenu, LocaleRow } from "@/components/layout/locale-switcher";
+import { useI18n } from "@/i18n/client";
+import { format } from "@/i18n/format";
 
 const ease = [0.32, 0.72, 0, 1] as const;
 
 function Monogram() {
+  const { dict, href } = useI18n();
   return (
-    <Link href="/" className="group flex items-center gap-3 pr-2" aria-label={`${site.name}, trang chủ`}>
+    <Link href={href("/")} className="group flex items-center gap-3 pr-2" aria-label={format(dict.nav.homeAria, { name: site.name })}>
       <span className="flex size-9 items-center justify-center rounded-full bg-gold/15 font-display text-lg italic text-gold-bright hairline transition-transform duration-700 ease-silk group-hover:rotate-[-8deg]">
         E
       </span>
@@ -26,6 +30,7 @@ function Monogram() {
 }
 
 export function SiteNav() {
+  const { dict, href } = useI18n();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -58,24 +63,25 @@ export function SiteNav() {
         transition={{ duration: 0.7, ease }}
       >
         <nav
-          aria-label="Điều hướng chính"
+          aria-label={dict.nav.mainLabel}
           className="glass flex h-16 w-full max-w-6xl items-center justify-between gap-6 rounded-full bg-char/70 px-3 pl-4 inner-glow backdrop-blur-2xl lg:w-max lg:max-w-none"
         >
           <Monogram />
 
           <ul className="hidden items-center gap-1 lg:flex">
             {navLinks.map((l) => {
-              const active = pathname.startsWith(l.href);
+              const to = href(l.href);
+              const active = pathname.startsWith(to);
               return (
                 <li key={l.href} className="relative">
                   <Link
-                    href={l.href}
+                    href={to}
                     className={cn(
                       "relative z-10 block rounded-full px-4 py-2 text-sm transition-colors duration-500 ease-silk",
                       active ? "text-cream" : "text-smoke hover:text-cream",
                     )}
                   >
-                    {l.label}
+                    {dict.nav[l.key]}
                   </Link>
                   {active && (
                     <motion.span
@@ -90,11 +96,14 @@ export function SiteNav() {
           </ul>
 
           <div className="flex items-center gap-2">
+            <div className="hidden lg:block">
+              <LocaleMenu />
+            </div>
             <Link
-              href={cta.reserve.href}
+              href={href(cta.reserve)}
               className="group hidden items-center gap-2 rounded-full bg-gold py-1.5 pl-5 pr-1.5 text-sm font-medium text-obsidian transition-[transform,background-color] duration-500 ease-silk hover:bg-gold-bright active:scale-[0.98] sm:inline-flex"
             >
-              {cta.reserve.label}
+              {dict.cta.reserve}
               <span className="flex size-8 items-center justify-center rounded-full bg-obsidian/10 transition-transform duration-500 ease-silk group-hover:translate-x-0.5 group-hover:-translate-y-px">
                 <ArrowUpRight size={14} weight="light" />
               </span>
@@ -105,7 +114,7 @@ export function SiteNav() {
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-controls="mobile-menu"
-              aria-label={open ? "Đóng menu" : "Mở menu"}
+              aria-label={open ? dict.nav.closeMenu : dict.nav.openMenu}
               className="relative flex size-11 items-center justify-center rounded-full bg-cream/[0.06] hairline lg:hidden"
             >
               <span
@@ -136,7 +145,7 @@ export function SiteNav() {
             transition={{ duration: 0.6, ease }}
           >
             <ul className="flex flex-col gap-2">
-              {[{ href: "/", label: "Trang chủ" }, ...navLinks].map((l, i) => (
+              {[{ href: "/", key: "home" } as const, ...navLinks].map((l, i) => (
                 <li key={l.href} className="overflow-hidden">
                   <motion.div
                     initial={{ y: "110%", opacity: 0 }}
@@ -144,13 +153,13 @@ export function SiteNav() {
                     transition={{ duration: 0.8, delay: 0.08 + i * 0.06, ease }}
                   >
                     <Link
-                      href={l.href}
+                      href={href(l.href)}
                       className={cn(
                         "block py-1 font-display text-5xl leading-tight",
-                        pathname === l.href ? "italic text-gold-bright" : "text-cream",
+                        pathname === href(l.href) ? "italic text-gold-bright" : "text-cream",
                       )}
                     >
-                      {l.label}
+                      {dict.nav[l.key]}
                     </Link>
                   </motion.div>
                 </li>
@@ -162,11 +171,12 @@ export function SiteNav() {
               transition={{ duration: 0.8, delay: 0.45, ease }}
               className="flex flex-col gap-6"
             >
+              <LocaleRow />
               <Link
-                href={cta.reserve.href}
+                href={href(cta.reserve)}
                 className="inline-flex w-max items-center gap-3 rounded-full bg-gold py-2 pl-6 pr-2 font-medium text-obsidian"
               >
-                {cta.reserve.label}
+                {dict.cta.reserve}
                 <span className="flex size-9 items-center justify-center rounded-full bg-obsidian/10">
                   <ArrowUpRight size={16} weight="light" />
                 </span>

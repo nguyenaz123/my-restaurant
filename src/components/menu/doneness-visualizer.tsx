@@ -6,6 +6,9 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Thermometer } from "@phosphor-icons/react";
 import { doneness } from "@/lib/data";
 import { cn } from "@/lib/cn";
+import { useI18n } from "@/i18n/client";
+import { format } from "@/i18n/format";
+import { Rich } from "@/i18n/rich";
 
 const ease = [0.32, 0.72, 0, 1] as const;
 const RECOMMENDED = 1;
@@ -29,10 +32,11 @@ const SHAPE = "48% 52% 46% 54% / 58% 50% 50% 42%";
  * centre layer (transform only) rather than animating its size.
  */
 function SteakSection({ level }: { level: number }) {
+  const { dict } = useI18n();
   const d = doneness[level];
   const scale = 1 - d.bandWidth / 100;
   return (
-    <div className="relative mx-auto aspect-[5/4] w-full max-w-[520px]" role="img" aria-label={`Mặt cắt miếng steak độ chín ${d.label}`}>
+    <div className="relative mx-auto aspect-[5/4] w-full max-w-[520px]" role="img" aria-label={format(dict.menu.doneness.sectionAria, { label: d.label })}>
       {/* contact shadow */}
       <div className="absolute inset-x-[10%] bottom-[-4%] h-[16%] rounded-[50%] bg-obsidian blur-2xl" />
       {/* fat cap peeking out along the upper edge */}
@@ -85,7 +89,10 @@ function SteakSection({ level }: { level: number }) {
 export function DonenessVisualizer() {
   const [level, setLevel] = useState(RECOMMENDED);
   const reduce = useReducedMotion();
+  const { dict } = useI18n();
+  const t = dict.menu.doneness;
   const d = doneness[level];
+  const text = t.levels[d.id];
 
   return (
     <section aria-labelledby="doneness-title" className="py-28 md:py-40">
@@ -98,10 +105,10 @@ export function DonenessVisualizer() {
 
             <div className="lg:col-span-5 lg:col-start-8">
               <h2 id="doneness-title" className="font-display text-4xl font-light leading-[1.05] text-cream md:text-5xl">
-                Chọn độ chín <span className="italic text-gold">của riêng bạn</span>
+                <Rich text={t.title} />
               </h2>
               <p className="mt-4 max-w-[46ch] leading-relaxed text-smoke">
-                Kéo thanh trượt để xem mặt cắt, nhiệt độ lõi và cảm nhận ở từng mức.
+                {t.intro}
               </p>
 
               <Slider.Root
@@ -111,7 +118,7 @@ export function DonenessVisualizer() {
                 step={1}
                 value={[level]}
                 onValueChange={([v]) => setLevel(v)}
-                aria-label="Độ chín"
+                aria-label={t.sliderLabel}
               >
                 <Slider.Track className="relative h-[3px] grow overflow-hidden rounded-full bg-[linear-gradient(90deg,#9e1b2f,#c23b4a,#cf6e70,#b88779,#8f6d5e)]">
                   <Slider.Range className="absolute h-full" />
@@ -150,21 +157,22 @@ export function DonenessVisualizer() {
                 >
                   <div className="flex flex-wrap items-baseline justify-between gap-4">
                     <p className="font-display text-4xl text-cream">
-                      {d.label} <span className="text-2xl italic text-gold">{d.vi}</span>
+                      {d.label}{" "}
+                      {text.name !== d.label && <span className="text-2xl italic text-gold">{text.name}</span>}
                     </p>
                     <p className="flex items-center gap-2 text-sm text-gold-bright">
                       <Thermometer size={18} weight="light" />
-                      Lõi {d.temp}
+                      {format(t.core, { temp: d.temp })}
                     </p>
                   </div>
                   <dl className="mt-6 grid gap-5 text-sm sm:grid-cols-2">
                     <div>
-                      <dt className="text-smoke">Độ mềm</dt>
-                      <dd className="mt-1 leading-relaxed text-cream/85">{d.texture}</dd>
+                      <dt className="text-smoke">{t.texture}</dt>
+                      <dd className="mt-1 leading-relaxed text-cream/85">{text.texture}</dd>
                     </div>
                     <div>
-                      <dt className="text-smoke">Hương vị</dt>
-                      <dd className="mt-1 leading-relaxed text-cream/85">{d.flavor}</dd>
+                      <dt className="text-smoke">{t.flavor}</dt>
+                      <dd className="mt-1 leading-relaxed text-cream/85">{text.flavor}</dd>
                     </div>
                   </dl>
                 </motion.div>

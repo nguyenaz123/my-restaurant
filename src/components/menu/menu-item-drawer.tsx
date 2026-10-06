@@ -8,17 +8,21 @@ import { cuts, type MenuItem } from "@/lib/data";
 import { ButtonLink } from "@/components/ui/button-link";
 import { cta } from "@/lib/site";
 import { AddressLink } from "@/components/ui/address-link";
+import { useI18n } from "@/i18n/client";
+import { format, formatPrice } from "@/i18n/format";
 
 const ease = [0.32, 0.72, 0, 1] as const;
 
 function MarblingScale({ score }: { score: number }) {
+  const { dict } = useI18n();
+  const t = dict.menu.drawer;
   return (
     <div>
       <div className="flex items-baseline gap-2">
         <span className="font-display text-7xl font-light leading-none text-cream">{score}</span>
-        <span className="text-sm text-smoke">trên thang BMS 12</span>
+        <span className="text-sm text-smoke">{t.bmsScale}</span>
       </div>
-      <div className="mt-5 flex justify-between" role="img" aria-label={`Điểm vân mỡ ${score} trên 12`}>
+      <div className="mt-5 flex justify-between" role="img" aria-label={format(t.bmsAria, { score })}>
         {Array.from({ length: 12 }, (_, i) => (
           <motion.span
             key={i}
@@ -47,13 +51,17 @@ type Props = {
 
 /** Side drawer with the details of one menu item. Items linked to a cut also show marbling, aging and the sommelier pick. */
 export function MenuItemDrawer({ item, image, open, onClose }: Props) {
+  const { dict } = useI18n();
+  const t = dict.menu.drawer;
   const cut = item?.cut ? cuts.find((c) => c.slug === item.cut) : undefined;
-  const portion = cut?.weight ?? item?.meta;
+  const cutText = cut && dict.cuts[cut.slug];
+  const text = item && dict.menu.items[item.id];
+  const portion = cutText?.weight ?? text?.meta ?? item?.meta;
 
   return (
     <Dialog.Root open={open} onOpenChange={(o) => !o && onClose()}>
       <AnimatePresence>
-        {open && item && (
+        {open && item && text && (
           <Dialog.Portal forceMount>
             <Dialog.Overlay asChild forceMount>
               <motion.div
@@ -80,12 +88,12 @@ export function MenuItemDrawer({ item, image, open, onClose }: Props) {
                     animate={{ scale: 1 }}
                     transition={{ duration: 1.4, ease }}
                   >
-                    <Image src={cut?.image ?? image} alt={item.name} fill quality={70} sizes="576px" className="object-cover" />
+                    <Image src={cut?.image ?? image} alt={text.name} fill quality={70} sizes="576px" className="object-cover" />
                   </motion.div>
                   <div className="absolute inset-0 bg-gradient-to-t from-char via-char/10 to-transparent" />
                   <Dialog.Close
                     className="absolute right-3 top-3 flex size-11 items-center justify-center rounded-full bg-obsidian/60 text-cream backdrop-blur-md hairline transition-transform duration-500 ease-silk hover:rotate-90"
-                    aria-label="Đóng"
+                    aria-label={dict.common.close}
                   >
                     <X size={18} weight="light" />
                   </Dialog.Close>
@@ -93,14 +101,14 @@ export function MenuItemDrawer({ item, image, open, onClose }: Props) {
 
                 <div className="flex flex-1 flex-col gap-10 px-4 pb-6 pt-2 md:px-8">
                   <div>
-                    {cut && <p className="text-sm text-smoke">{cut.origin}</p>}
+                    {cutText && <p className="text-sm text-smoke">{cutText.origin}</p>}
                     <Dialog.Title className="mt-1 font-display text-4xl font-light leading-tight text-cream md:text-5xl">
-                      {item.name}
+                      {text.name}
                     </Dialog.Title>
                     {item.signature && (
-                      <p className="mt-2 font-display text-lg italic text-gold">Món đặc trưng của nhà hàng</p>
+                      <p className="mt-2 font-display text-lg italic text-gold">{dict.common.signature}</p>
                     )}
-                    <p className="mt-4 max-w-[52ch] leading-relaxed text-cream/75">{cut?.tasting ?? item.detail}</p>
+                    <p className="mt-4 max-w-[52ch] leading-relaxed text-cream/75">{cutText?.tasting ?? text.detail}</p>
                   </div>
 
                   {cut && <MarblingScale score={cut.bms} />}
@@ -108,33 +116,33 @@ export function MenuItemDrawer({ item, image, open, onClose }: Props) {
                   <dl className="grid grid-cols-2 gap-6">
                     {cut && (
                       <div>
-                        <dt className="text-xs uppercase tracking-[0.2em] text-smoke">Ủ khô</dt>
+                        <dt className="text-xs uppercase tracking-[0.2em] text-smoke">{t.aged}</dt>
                         <dd className="mt-2 font-display text-4xl font-light text-cream">
-                          {cut.agedDays} <span className="text-lg italic text-gold">ngày</span>
+                          {cut.agedDays} <span className="text-lg italic text-gold">{dict.common.days}</span>
                         </dd>
                       </div>
                     )}
                     <div>
-                      <dt className="text-xs uppercase tracking-[0.2em] text-smoke">{portion ? "Khẩu phần" : "Giá"}</dt>
+                      <dt className="text-xs uppercase tracking-[0.2em] text-smoke">{portion ? t.portion : t.price}</dt>
                       {portion && <dd className="mt-2 text-cream">{portion}</dd>}
-                      <dd className={portion ? "text-gold-bright" : "mt-2 text-gold-bright"}>{item.price}</dd>
+                      <dd className={portion ? "text-gold-bright" : "mt-2 text-gold-bright"}>{formatPrice(item.price, dict.format, item.priceFrom)}</dd>
                     </div>
                   </dl>
 
-                  {cut && (
+                  {cut && cutText && (
                     <div className="rounded-[1.25rem] bg-wine/40 p-6 inner-glow">
                       <div className="flex items-center gap-3 text-gold-bright">
                         <Wine size={20} weight="light" />
-                        <span className="text-xs uppercase tracking-[0.2em]">Sommelier gợi ý</span>
+                        <span className="text-xs uppercase tracking-[0.2em]">{t.sommelier}</span>
                       </div>
-                      <p className="mt-4 font-display text-2xl text-cream">{cut.sommelier.wine}</p>
-                      <p className="text-sm text-smoke">{cut.sommelier.region}</p>
-                      <p className="mt-4 leading-relaxed text-cream/80">{cut.sommelier.note}</p>
+                      <p className="mt-4 font-display text-2xl text-cream">{cut.wine}</p>
+                      <p className="text-sm text-smoke">{cutText.region}</p>
+                      <p className="mt-4 leading-relaxed text-cream/80">{cutText.note}</p>
                     </div>
                   )}
 
                   <div className="mt-auto flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-                    <ButtonLink href={cta.reserve.href}>{cta.reserve.label}</ButtonLink>
+                    <ButtonLink href={cta.reserve}>{dict.cta.reserve}</ButtonLink>
                     <AddressLink />
                   </div>
                 </div>

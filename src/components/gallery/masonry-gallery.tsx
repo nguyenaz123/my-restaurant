@@ -5,8 +5,9 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { CaretLeft, CaretRight, X } from "@phosphor-icons/react";
-import { gallery, galleryFilters, type GalleryItem, type GalleryTag } from "@/lib/data";
+import { gallery, galleryFilters, imageSrc, type GalleryFilter, type GalleryItem } from "@/lib/data";
 import { cn } from "@/lib/cn";
+import { useI18n } from "@/i18n/client";
 
 const ease = [0.32, 0.72, 0, 1] as const;
 const ratioClass: Record<GalleryItem["ratio"], string> = {
@@ -16,7 +17,9 @@ const ratioClass: Record<GalleryItem["ratio"], string> = {
 };
 
 export function MasonryGallery() {
-  const [filter, setFilter] = useState<GalleryTag | "all">("all");
+  const { dict } = useI18n();
+  const t = dict.gallery;
+  const [filter, setFilter] = useState<GalleryFilter>("all");
   const [open, setOpen] = useState<number | null>(null);
   const reduce = useReducedMotion();
 
@@ -38,21 +41,22 @@ export function MasonryGallery() {
   }, [open, step]);
 
   const current = open !== null ? items[open] : null;
+  const currentAlt = current ? dict.images[current.image] : "";
 
   return (
-    <section aria-label="Bộ sưu tập hình ảnh" className="pb-28 md:pb-40">
+    <section aria-label={t.sectionLabel} className="pb-28 md:pb-40">
       <div className="mx-auto max-w-[1400px] px-4 md:px-10">
-        <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Lọc hình ảnh">
+        <div className="flex flex-wrap gap-2" role="radiogroup" aria-label={t.filterLabel}>
           {galleryFilters.map((f) => {
-            const active = f.id === filter;
-            const count = f.id === "all" ? gallery.length : gallery.filter((g) => g.tag === f.id).length;
+            const active = f === filter;
+            const count = f === "all" ? gallery.length : gallery.filter((g) => g.tag === f).length;
             return (
               <button
-                key={f.id}
+                key={f}
                 type="button"
                 role="radio"
                 aria-checked={active}
-                onClick={() => setFilter(f.id)}
+                onClick={() => setFilter(f)}
                 className={cn(
                   "group relative rounded-full px-5 py-2.5 text-sm transition-colors duration-500 ease-silk",
                   active ? "text-obsidian" : "bg-cream/[0.04] text-smoke hairline hover:text-cream",
@@ -66,7 +70,7 @@ export function MasonryGallery() {
                   />
                 )}
                 <span className="relative">
-                  {f.label} <span className={active ? "text-obsidian/60" : "text-cream/30"}>{count}</span>
+                  {t.filters[f]} <span className={active ? "text-obsidian/60" : "text-cream/30"}>{count}</span>
                 </span>
               </button>
             );
@@ -77,7 +81,7 @@ export function MasonryGallery() {
           <AnimatePresence mode="popLayout">
             {items.map((item, i) => (
               <motion.li
-                key={item.src}
+                key={item.image}
                 layout={!reduce}
                 initial={reduce ? false : { opacity: 0, scale: 0.94, filter: "blur(8px)" }}
                 animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
@@ -92,8 +96,8 @@ export function MasonryGallery() {
                 >
                   <span className={cn("relative block overflow-hidden rounded-[calc(1.75rem-0.375rem)] bg-char", ratioClass[item.ratio])}>
                     <Image
-                      src={item.src}
-                      alt={item.alt}
+                      src={imageSrc(item.image)}
+                      alt={dict.images[item.image]}
                       fill
                       quality={70}
                       sizes="(min-width: 1024px) 30vw, (min-width: 640px) 48vw, 100vw"
@@ -129,33 +133,33 @@ export function MasonryGallery() {
                   exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.4, ease }}
                 >
-                  <Dialog.Title className="sr-only">{current.alt}</Dialog.Title>
+                  <Dialog.Title className="sr-only">{currentAlt}</Dialog.Title>
                   <div className="relative h-[72dvh] w-full max-w-6xl">
                     <AnimatePresence mode="popLayout" initial={false}>
                       <motion.div
-                        key={current.src}
+                        key={current.image}
                         className="absolute inset-0"
                         initial={{ opacity: 0, scale: 0.97 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 1.02 }}
                         transition={{ duration: 0.6, ease }}
                       >
-                        <Image src={current.src} alt={current.alt} fill quality={82} sizes="90vw" className="object-contain" />
+                        <Image src={imageSrc(current.image)} alt={currentAlt} fill quality={82} sizes="90vw" className="object-contain" />
                     </motion.div>
                     </AnimatePresence>
                   </div>
-                  <p className="max-w-[60ch] text-center text-sm text-cream/70">{current.alt}</p>
+                  <p className="max-w-[60ch] text-center text-sm text-cream/70">{currentAlt}</p>
                   <div className="flex items-center gap-3">
                     <button
                       type="button"
                       onClick={() => step(-1)}
-                      aria-label="Ảnh trước"
+                      aria-label={dict.common.prev}
                       className="flex size-12 items-center justify-center rounded-full bg-cream/[0.06] text-cream hairline transition-transform duration-500 ease-silk hover:-translate-x-0.5 active:scale-95"
                     >
                       <CaretLeft size={18} weight="light" />
                     </button>
                     <Dialog.Close
-                      aria-label="Đóng"
+                      aria-label={dict.common.close}
                       className="flex size-12 items-center justify-center rounded-full bg-gold text-obsidian transition-transform duration-500 ease-silk hover:rotate-90 active:scale-95"
                     >
                       <X size={18} weight="light" />
@@ -163,7 +167,7 @@ export function MasonryGallery() {
                     <button
                       type="button"
                       onClick={() => step(1)}
-                      aria-label="Ảnh tiếp theo"
+                      aria-label={dict.common.next}
                       className="flex size-12 items-center justify-center rounded-full bg-cream/[0.06] text-cream hairline transition-transform duration-500 ease-silk hover:translate-x-0.5 active:scale-95"
                     >
                       <CaretRight size={18} weight="light" />

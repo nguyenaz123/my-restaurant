@@ -5,13 +5,19 @@ import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { agingStages } from "@/lib/data";
 import { cn } from "@/lib/cn";
+import { useI18n } from "@/i18n/client";
+import { format } from "@/i18n/format";
+import { Rich } from "@/i18n/rich";
 
 const ease = [0.32, 0.72, 0, 1] as const;
 
 export function AgingTimeline() {
   const [index, setIndex] = useState(0);
   const reduce = useReducedMotion();
+  const { dict } = useI18n();
+  const t = dict.craft.aging;
   const stage = agingStages[index];
+  const text = t.stages[stage.days];
 
   const onKey = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowRight") setIndex((i) => Math.min(agingStages.length - 1, i + 1));
@@ -22,11 +28,11 @@ export function AgingTimeline() {
     <section aria-labelledby="aging-title" className="py-28 md:py-40">
       <div className="mx-auto max-w-[1400px] px-4 md:px-10">
         <h2 id="aging-title" className="max-w-3xl font-display text-4xl font-light leading-[1.05] text-cream md:text-6xl">
-          30, 60, 90 ngày. <span className="italic text-gold">Mỗi mốc một tính cách.</span>
+          <Rich text={t.title} />
         </h2>
 
         {/* Timeline rail */}
-        <div role="tablist" aria-label="Các mốc ủ khô" onKeyDown={onKey} className="relative mt-16 grid grid-cols-3">
+        <div role="tablist" aria-label={t.tabsLabel} onKeyDown={onKey} className="relative mt-16 grid grid-cols-3">
           <div aria-hidden className="absolute inset-x-0 top-8 h-px bg-cream/10" />
           <motion.div
             aria-hidden
@@ -69,7 +75,7 @@ export function AgingTimeline() {
                   )}
                 >
                   {s.days}
-                  <span className="ml-1 text-base italic md:text-xl">ngày</span>
+                  <span className="ml-1 text-base italic md:text-xl">{dict.common.days}</span>
                 </span>
               </button>
             );
@@ -93,7 +99,7 @@ export function AgingTimeline() {
                   exit={{ opacity: 0.4 }}
                   transition={{ duration: 1.1, ease }}
                 >
-                  <Image src={stage.image} alt={`Thịt bò ở mốc ${stage.days} ngày ủ khô`} fill quality={70} sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
+                  <Image src={stage.image} alt={format(t.imageAlt, { days: stage.days })} fill quality={70} sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -108,10 +114,10 @@ export function AgingTimeline() {
                 exit={{ opacity: 0, y: -16, filter: "blur(8px)" }}
                 transition={{ duration: 0.6, ease }}
               >
-                <h3 className="font-display text-4xl italic text-gold-bright md:text-5xl">{stage.title}</h3>
-                <p className="mt-5 text-lg leading-relaxed text-cream/80">{stage.summary}</p>
-                <ul className="mt-8 flex flex-wrap gap-2" aria-label="Hương vị nổi bật">
-                  {stage.notes.map((n) => (
+                <h3 className="font-display text-4xl italic text-gold-bright md:text-5xl">{text.title}</h3>
+                <p className="mt-5 text-lg leading-relaxed text-cream/80">{text.summary}</p>
+                <ul className="mt-8 flex flex-wrap gap-2" aria-label={t.notesLabel}>
+                  {text.notes.map((n) => (
                     <li key={n} className="rounded-full bg-cream/[0.05] px-4 py-2 text-sm text-cream hairline">
                       {n}
                     </li>
@@ -119,12 +125,12 @@ export function AgingTimeline() {
                 </ul>
                 <dl className="mt-10 grid grid-cols-2 gap-6 border-t border-cream/10 pt-8 text-sm">
                   <div>
-                    <dt className="text-smoke">Kết cấu</dt>
-                    <dd className="mt-1 text-cream">{stage.texture}</dd>
+                    <dt className="text-smoke">{t.texture}</dt>
+                    <dd className="mt-1 text-cream">{text.texture}</dd>
                   </div>
                   <div>
-                    <dt className="text-smoke">Trọng lượng</dt>
-                    <dd className="mt-1 text-cream">{stage.loss}</dd>
+                    <dt className="text-smoke">{t.loss}</dt>
+                    <dd className="mt-1 text-cream">{text.loss}</dd>
                   </div>
                 </dl>
               </motion.div>
