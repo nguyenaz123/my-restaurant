@@ -30,7 +30,8 @@ export function Hero() {
   });
 
   return (
-    <section ref={ref} className="relative flex min-h-[100dvh] items-end overflow-hidden">
+    // svh, not dvh: the mobile URL bar collapsing / expanding must not resize the hero (and reflow the page) mid-scroll.
+    <section ref={ref} className="relative flex min-h-svh items-end overflow-hidden">
       <motion.div style={{ y: imageY }} className="absolute inset-0">
         <div className="absolute inset-0 animate-kenburns">
           <Image

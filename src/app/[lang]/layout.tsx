@@ -108,7 +108,7 @@ export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
       lang={localeMeta[locale].htmlLang}
       className={`${cormorant.variable} ${jakarta.variable} ${laoSerif.variable} ${laoSans.variable}`}
     >
-      <body className="grain min-h-[100dvh] bg-obsidian">
+      <body className="grain min-h-svh bg-obsidian">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}

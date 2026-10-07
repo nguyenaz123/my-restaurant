@@ -64,7 +64,7 @@ export function SiteNav() {
       >
         <nav
           aria-label={dict.nav.mainLabel}
-          className="glass flex h-16 w-full max-w-6xl items-center justify-between gap-6 rounded-full bg-char/70 px-3 pl-4 inner-glow backdrop-blur-2xl lg:w-max lg:max-w-none"
+          className="glass flex h-16 w-full max-w-6xl items-center justify-between gap-6 rounded-full bg-char/70 px-3 pl-4 inner-glow backdrop-blur-md md:backdrop-blur-2xl lg:w-max lg:max-w-none"
         >
           <Monogram />
 

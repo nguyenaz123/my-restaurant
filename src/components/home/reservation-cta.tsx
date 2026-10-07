@@ -19,7 +19,7 @@ export async function ReservationCta() {
           fill
           quality={70}
           sizes="100vw"
-          className="object-cover opacity-45 mix-blend-luminosity"
+          className="object-cover opacity-45 grayscale"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-wine/80 via-wine-deep/70 to-obsidian/90" />
 

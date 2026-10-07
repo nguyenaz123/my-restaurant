@@ -21,7 +21,8 @@ export function Embers() {
       {embers.map((e, i) => (
         <span
           key={i}
-          className="ember absolute bottom-[-2%] rounded-full bg-gold-bright"
+          // Every other ember is hidden on phones to halve the animated layers over the hero.
+          className={`ember absolute bottom-[-2%] rounded-full bg-gold-bright ${i % 2 ? "hidden md:block" : ""}`}
           style={
             {
               left: e.left,
