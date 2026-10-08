@@ -1,6 +1,7 @@
 import type { AgingDays, CutSlug, DonenessId, GalleryFilter, ImageId, MenuCategory, MenuItemId, RoomId } from "@/lib/data";
 import type { NavKey } from "@/lib/site";
 import type { OccasionId, SeatingId } from "@/lib/reservation-schema";
+import type { Theme } from "@/lib/theme";
 
 /*
   Source dictionary. Its shape is the `Dictionary` type, so the other locales
@@ -30,6 +31,10 @@ const vi = {
     closeMenu: "Đóng menu",
     language: "Ngôn ngữ",
   } satisfies Record<NavKey | "home" | "mainLabel" | "homeAria" | "openMenu" | "closeMenu" | "language", string>,
+  theme: {
+    label: "Phong cách",
+    names: { ember: "Ember", retro: "Cổ điển", glass: "Kính mờ", liquid: "Liquid Glass", neobrutal: "Neo-brutal", memphis: "Memphis" } satisfies Record<Theme, string>,
+  },
   languageGate: {
     title: "Chào mừng đến *Ember & Age*",
     intro: "Bạn muốn xem trang bằng ngôn ngữ nào? Bạn có thể đổi lại bất cứ lúc nào ở thanh menu.",

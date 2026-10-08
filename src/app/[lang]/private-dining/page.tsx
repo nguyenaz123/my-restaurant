@@ -94,8 +94,8 @@ export default async function PrivateDiningPage() {
               </li>
             </ul>
 
-            <div className="mt-10 rounded-[1.75rem] bg-cream/[0.03] p-1.5 hairline">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[calc(1.75rem-0.375rem)] bg-char">
+            <div className="mt-10 bezel rounded-bezel bg-cream/[0.03] p-1.5 hairline">
+              <div className="relative aspect-[4/3] overflow-hidden bezel-core rounded-bezel-core bg-char">
                 <iframe
                   title={format(dict.contact.mapTitle, { name: site.name })}
                   src={`https://maps.google.com/maps?q=${site.geo.lat},${site.geo.lng}&z=16&output=embed`}

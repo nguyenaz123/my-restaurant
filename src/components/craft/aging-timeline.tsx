@@ -88,8 +88,8 @@ export function AgingTimeline() {
           aria-labelledby={`aging-tab-${stage.days}`}
           className="mt-14 grid gap-10 lg:grid-cols-12 lg:items-center"
         >
-          <div className="rounded-[1.75rem] bg-cream/[0.03] p-1.5 hairline lg:col-span-6">
-            <div className="relative aspect-[5/4] overflow-hidden rounded-[calc(1.75rem-0.375rem)] bg-char">
+          <div className="bezel rounded-bezel bg-cream/[0.03] p-1.5 hairline lg:col-span-6">
+            <div className="relative aspect-[5/4] overflow-hidden bezel-core rounded-bezel-core bg-char">
               <AnimatePresence initial={false} mode="popLayout">
                 <motion.div
                   key={stage.days}
@@ -118,7 +118,7 @@ export function AgingTimeline() {
                 <p className="mt-5 text-lg leading-relaxed text-cream/80">{text.summary}</p>
                 <ul className="mt-8 flex flex-wrap gap-2" aria-label={t.notesLabel}>
                   {text.notes.map((n) => (
-                    <li key={n} className="rounded-full bg-cream/[0.05] px-4 py-2 text-sm text-cream hairline">
+                    <li key={n} className="rounded-pill bg-cream/[0.05] px-4 py-2 text-sm text-cream hairline">
                       {n}
                     </li>
                   ))}

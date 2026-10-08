@@ -95,11 +95,11 @@ export function LanguageGate() {
                 exit={{ opacity: 0, y: 12, scale: 0.98 }}
                 transition={{ duration: 0.7, ease }}
               >
-                <div className="rounded-[1.75rem] bg-cream/[0.04] p-1.5 hairline">
-                  <div className="relative rounded-[calc(1.75rem-0.375rem)] bg-char px-6 pb-6 pt-8 inner-glow md:px-8 md:pt-10">
+                <div className="bezel rounded-bezel bg-cream/[0.04] p-1.5 hairline">
+                  <div className="relative bezel-core rounded-bezel-core bg-char px-6 pb-6 pt-8 inner-glow md:px-8 md:pt-10">
                     <Dialog.Close
                       aria-label={t.close}
-                      className="absolute right-3 top-3 flex size-10 items-center justify-center rounded-full bg-cream/[0.06] text-cream hairline transition-transform duration-500 ease-silk hover:rotate-90"
+                      className="absolute right-3 top-3 flex size-10 items-center justify-center rounded-pill bg-cream/[0.06] text-cream hairline transition-transform duration-500 ease-silk hover:rotate-90"
                     >
                       <X size={16} weight="light" />
                     </Dialog.Close>
@@ -133,11 +133,11 @@ export function LanguageGate() {
                                 setOpen(false);
                               }}
                               className={cn(
-                                "group flex items-center gap-4 rounded-2xl p-3 pr-4 transition-colors duration-500 ease-silk",
+                                "group flex items-center gap-4 rounded-field p-3 pr-4 transition-colors duration-500 ease-silk",
                                 current ? "bg-gold/10 ring-1 ring-gold/40" : "bg-cream/[0.03] hairline hover:bg-cream/[0.07]",
                               )}
                             >
-                              <span className="relative h-8 w-12 shrink-0 overflow-hidden rounded-md shadow-[0_0_0_1px_rgba(244,239,235,0.12)]">
+                              <span className="relative h-8 w-12 shrink-0 overflow-hidden rounded-md shadow-[0_0_0_1px_color-mix(in_oklab,var(--color-cream)_12%,transparent)]">
                                 <Flag locale={l} className="size-full" />
                               </span>
                               <span className="flex flex-1 flex-col">

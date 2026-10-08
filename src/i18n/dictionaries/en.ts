@@ -21,6 +21,10 @@ const en: Dictionary = {
     closeMenu: "Close menu",
     language: "Language",
   },
+  theme: {
+    label: "Style",
+    names: { ember: "Ember", retro: "Retro", glass: "Glassmorphism", liquid: "Liquid Glass", neobrutal: "Neo-brutal", memphis: "Memphis" },
+  },
   languageGate: {
     title: "Welcome to *Ember & Age*",
     intro: "Which language would you like to browse in? You can change it any time from the menu.",

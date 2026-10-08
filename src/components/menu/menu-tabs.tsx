@@ -33,7 +33,7 @@ export function MenuTabs({ header }: { header?: React.ReactNode }) {
         <div
           role="tablist"
           aria-label={t.tabsLabel}
-          className="-mx-4 flex gap-1 overflow-x-auto px-4 pb-2 md:mx-0 md:w-max md:rounded-full md:bg-cream/[0.03] md:p-1.5 md:hairline"
+          className="-mx-4 flex gap-1 overflow-x-auto px-4 pb-2 md:mx-0 md:w-max md:rounded-pill md:bg-cream/[0.03] md:p-1.5 md:hairline"
         >
           {menuCategories.map((c) => {
             const active = c === cat;
@@ -45,14 +45,14 @@ export function MenuTabs({ header }: { header?: React.ReactNode }) {
                 aria-controls="menu-panel"
                 onClick={() => setCat(c)}
                 className={cn(
-                  "relative shrink-0 whitespace-nowrap rounded-full px-5 py-2.5 text-sm transition-colors duration-500 ease-silk",
+                  "relative shrink-0 whitespace-nowrap rounded-pill px-5 py-2.5 text-sm transition-colors duration-500 ease-silk",
                   active ? "text-obsidian" : "text-smoke hover:text-cream",
                 )}
               >
                 {active && (
                   <motion.span
                     layoutId="menu-pill"
-                    className="absolute inset-0 rounded-full bg-gold"
+                    className="absolute inset-0 rounded-pill bg-gold"
                     transition={{ type: "spring", stiffness: 300, damping: 32 }}
                   />
                 )}
@@ -64,8 +64,8 @@ export function MenuTabs({ header }: { header?: React.ReactNode }) {
 
         <div id="menu-panel" role="tabpanel" className="mt-14 grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <div className="rounded-[1.75rem] bg-cream/[0.03] p-1.5 hairline lg:sticky lg:top-28">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[calc(1.75rem-0.375rem)] bg-char lg:aspect-[4/5]">
+            <div className="bezel rounded-bezel bg-cream/[0.03] p-1.5 hairline lg:sticky lg:top-28">
+              <div className="relative aspect-[4/3] overflow-hidden bezel-core rounded-bezel-core bg-char lg:aspect-[4/5]">
                 <AnimatePresence initial={false}>
                   <motion.div
                     key={cat}

@@ -69,9 +69,9 @@ export function BrandStory({ segments }: { segments: ManifestoSegment[] }) {
         <div ref={imgRef} className="relative h-[520px] md:h-[680px] lg:col-span-5">
           <motion.div
             style={{ y: backY }}
-            className="absolute right-0 top-0 w-[78%] rounded-[1.75rem] bg-cream/[0.03] p-1.5 hairline md:rotate-[2deg]"
+            className="absolute right-0 top-0 w-[78%] bezel rounded-bezel bg-cream/[0.03] p-1.5 hairline md:rotate-[2deg]"
           >
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[calc(1.75rem-0.375rem)]">
+            <div className="relative aspect-[4/5] overflow-hidden bezel-core rounded-bezel-core">
               <Image
                 src="/images/raw-cuts.jpg"
                 alt={dict.images["raw-cuts"]}
@@ -84,9 +84,9 @@ export function BrandStory({ segments }: { segments: ManifestoSegment[] }) {
           </motion.div>
           <motion.div
             style={{ y: frontY }}
-            className="absolute bottom-0 left-0 w-[62%] rounded-[1.75rem] bg-cream/[0.03] p-1.5 hairline md:-rotate-[3deg]"
+            className="absolute bottom-0 left-0 w-[62%] bezel rounded-bezel bg-cream/[0.03] p-1.5 hairline md:-rotate-[3deg]"
           >
-            <div className="relative aspect-[3/4] overflow-hidden rounded-[calc(1.75rem-0.375rem)]">
+            <div className="relative aspect-[3/4] overflow-hidden bezel-core rounded-bezel-core">
               <Image
                 src="/images/fire-grill.jpg"
                 alt={dict.images["fire-grill"]}

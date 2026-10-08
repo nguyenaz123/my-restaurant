@@ -97,8 +97,8 @@ export function DonenessVisualizer() {
   return (
     <section aria-labelledby="doneness-title" className="py-28 md:py-40">
       <div className="mx-auto max-w-[1400px] px-4 md:px-10">
-        <div className="rounded-[2rem] bg-cream/[0.03] p-1.5 hairline">
-          <div className="grid gap-14 overflow-hidden rounded-[calc(2rem-0.375rem)] bg-char px-6 py-14 inner-glow md:px-14 md:py-20 lg:grid-cols-12 lg:items-center">
+        <div className="bezel rounded-panel bg-cream/[0.03] p-1.5 hairline">
+          <div className="grid gap-14 overflow-hidden bezel-core rounded-panel-core bg-char px-6 py-14 inner-glow md:px-14 md:py-20 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-6">
               <SteakSection level={level} />
             </div>
@@ -125,7 +125,7 @@ export function DonenessVisualizer() {
                 </Slider.Track>
                 <Slider.Thumb
                   aria-valuetext={`${d.label}, ${d.temp}`}
-                  className="block size-7 cursor-grab rounded-full bg-cream shadow-[0_0_0_6px_rgba(197,160,89,0.25)] transition-transform duration-300 ease-silk hover:scale-110 active:cursor-grabbing active:scale-95"
+                  className="block size-7 cursor-grab rounded-full bg-cream shadow-[0_0_0_6px_color-mix(in_oklab,var(--color-gold)_25%,transparent)] transition-transform duration-300 ease-silk hover:scale-110 active:cursor-grabbing active:scale-95"
                 />
               </Slider.Root>
 

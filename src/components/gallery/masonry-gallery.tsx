@@ -58,14 +58,14 @@ export function MasonryGallery() {
                 aria-checked={active}
                 onClick={() => setFilter(f)}
                 className={cn(
-                  "group relative rounded-full px-5 py-2.5 text-sm transition-colors duration-500 ease-silk",
+                  "group relative rounded-pill px-5 py-2.5 text-sm transition-colors duration-500 ease-silk",
                   active ? "text-obsidian" : "bg-cream/[0.04] text-smoke hairline hover:text-cream",
                 )}
               >
                 {active && (
                   <motion.span
                     layoutId="gallery-filter"
-                    className="absolute inset-0 rounded-full bg-gold"
+                    className="absolute inset-0 rounded-pill bg-gold"
                     transition={{ type: "spring", stiffness: 300, damping: 32 }}
                   />
                 )}
@@ -92,9 +92,9 @@ export function MasonryGallery() {
                 <button
                   type="button"
                   onClick={() => setOpen(i)}
-                  className="group block w-full rounded-[1.75rem] bg-cream/[0.03] p-1.5 text-left hairline"
+                  className="group block w-full bezel rounded-bezel bg-cream/[0.03] p-1.5 text-left hairline"
                 >
-                  <span className={cn("relative block overflow-hidden rounded-[calc(1.75rem-0.375rem)] bg-char", ratioClass[item.ratio])}>
+                  <span className={cn("relative block overflow-hidden bezel-core rounded-bezel-core bg-char", ratioClass[item.ratio])}>
                     <Image
                       src={imageSrc(item.image)}
                       alt={dict.images[item.image]}
@@ -154,13 +154,13 @@ export function MasonryGallery() {
                       type="button"
                       onClick={() => step(-1)}
                       aria-label={dict.common.prev}
-                      className="flex size-12 items-center justify-center rounded-full bg-cream/[0.06] text-cream hairline transition-transform duration-500 ease-silk hover:-translate-x-0.5 active:scale-95"
+                      className="flex size-12 items-center justify-center rounded-pill bg-cream/[0.06] text-cream hairline transition-transform duration-500 ease-silk hover:-translate-x-0.5 active:scale-95"
                     >
                       <CaretLeft size={18} weight="light" />
                     </button>
                     <Dialog.Close
                       aria-label={dict.common.close}
-                      className="flex size-12 items-center justify-center rounded-full bg-gold text-obsidian transition-transform duration-500 ease-silk hover:rotate-90 active:scale-95"
+                      className="flex size-12 items-center justify-center rounded-pill bg-gold text-obsidian transition-transform duration-500 ease-silk hover:rotate-90 active:scale-95"
                     >
                       <X size={18} weight="light" />
                     </Dialog.Close>
@@ -168,7 +168,7 @@ export function MasonryGallery() {
                       type="button"
                       onClick={() => step(1)}
                       aria-label={dict.common.next}
-                      className="flex size-12 items-center justify-center rounded-full bg-cream/[0.06] text-cream hairline transition-transform duration-500 ease-silk hover:translate-x-0.5 active:scale-95"
+                      className="flex size-12 items-center justify-center rounded-pill bg-cream/[0.06] text-cream hairline transition-transform duration-500 ease-silk hover:translate-x-0.5 active:scale-95"
                     >
                       <CaretRight size={18} weight="light" />
                     </button>

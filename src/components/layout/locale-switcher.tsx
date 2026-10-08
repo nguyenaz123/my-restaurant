@@ -48,7 +48,7 @@ export function LocaleMenu() {
         aria-expanded={open}
         aria-controls="locale-menu"
         aria-label={`${dict.nav.language}: ${localeMeta[locale].label}`}
-        className="flex h-11 items-center gap-1.5 rounded-full bg-cream/[0.06] px-4 text-xs font-medium tracking-wide text-cream hairline transition-colors duration-500 ease-silk hover:bg-cream/[0.12]"
+        className="flex h-11 items-center gap-1.5 rounded-pill bg-cream/[0.06] px-4 text-xs font-medium tracking-wide text-cream hairline transition-colors duration-500 ease-silk hover:bg-cream/[0.12]"
       >
         <Flag locale={locale} className="h-3 w-[18px] rounded-[2px]" />
         {localeMeta[locale].short}
@@ -63,7 +63,7 @@ export function LocaleMenu() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -6, scale: 0.97 }}
             transition={{ duration: 0.35, ease }}
-            className="glass absolute right-0 top-[calc(100%+0.75rem)] w-48 origin-top-right rounded-[1.25rem] bg-char/90 p-1.5 inner-glow backdrop-blur-2xl"
+            className="glass absolute right-0 top-[calc(100%+0.75rem)] w-48 origin-top-right rounded-menu bg-char/90 p-1.5 inner-glow backdrop-blur-2xl"
           >
             {locales.map((l) => (
               <li key={l}>
@@ -77,7 +77,7 @@ export function LocaleMenu() {
                     setOpen(false);
                   }}
                   className={cn(
-                    "flex items-center justify-between rounded-[0.9rem] px-3.5 py-2.5 text-sm transition-colors duration-500 ease-silk",
+                    "flex items-center justify-between rounded-menu-item px-3.5 py-2.5 text-sm transition-colors duration-500 ease-silk",
                     l === locale ? "bg-cream/[0.07] text-cream" : "text-smoke hover:bg-cream/[0.05] hover:text-cream",
                   )}
                 >
@@ -112,7 +112,7 @@ export function LocaleRow({ className }: { className?: string }) {
               aria-current={l === locale ? "true" : undefined}
               onClick={() => rememberLocale(l)}
               className={cn(
-                "flex items-center gap-2 rounded-full px-4 py-2 text-sm transition-colors duration-500 ease-silk",
+                "flex items-center gap-2 rounded-pill px-4 py-2 text-sm transition-colors duration-500 ease-silk",
                 l === locale ? "bg-gold text-obsidian" : "bg-cream/[0.06] text-cream/80 hairline hover:text-cream",
               )}
             >

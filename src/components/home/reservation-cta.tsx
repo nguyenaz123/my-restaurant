@@ -12,7 +12,7 @@ export async function ReservationCta() {
   const t = dict.home.reserve;
   return (
     <section aria-labelledby="reserve-title" className="px-2 py-28 md:px-4 md:py-40">
-      <div className="relative mx-auto max-w-[1600px] overflow-hidden rounded-[2rem] bg-wine-deep">
+      <div className="relative mx-auto max-w-[1600px] overflow-hidden rounded-panel bg-wine-deep">
         <Image
           src="/images/wine-pour.jpg"
           alt=""
@@ -37,8 +37,8 @@ export async function ReservationCta() {
           </Reveal>
 
           <Reveal delay={0.15} className="lg:col-span-4 lg:col-start-9">
-            <div className="rounded-[1.75rem] bg-cream/[0.05] p-1.5 hairline">
-              <div className="rounded-[calc(1.75rem-0.375rem)] bg-obsidian/70 p-7 inner-glow">
+            <div className="bezel rounded-bezel bg-cream/[0.05] p-1.5 hairline">
+              <div className="bezel-core rounded-bezel-core bg-obsidian/70 p-7 inner-glow">
                 <AddressLink full className="mb-6 border-b border-cream/10 pb-6 text-cream" />
                 <dl className="space-y-5 text-sm">
                   {dict.contact.hours.map((h) => (
@@ -50,10 +50,10 @@ export async function ReservationCta() {
                 </dl>
                 <a
                   href={site.phoneHref}
-                  className="group mt-7 flex items-center justify-between rounded-full bg-cream/[0.06] py-2 pl-5 pr-2 text-cream hairline transition-colors duration-500 ease-silk hover:bg-cream/[0.1]"
+                  className="group mt-7 flex items-center justify-between rounded-pill bg-cream/[0.06] py-2 pl-5 pr-2 text-cream hairline transition-colors duration-500 ease-silk hover:bg-cream/[0.1]"
                 >
                   <span className="text-sm">{site.phone}</span>
-                  <span className="flex size-9 items-center justify-center rounded-full bg-gold text-obsidian transition-transform duration-500 ease-silk group-hover:scale-105">
+                  <span className="flex size-9 items-center justify-center rounded-pill bg-gold text-obsidian transition-transform duration-500 ease-silk group-hover:scale-105">
                     <Phone size={16} weight="light" />
                   </span>
                 </a>

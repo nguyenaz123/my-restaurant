@@ -36,9 +36,9 @@ function Panel({ s, i }: { s: (typeof spaces)[number]; i: number }) {
     // svh (not dvh) so the mobile URL bar showing / hiding never resizes the panels mid-scroll.
     // Subgrid shares the image row and caption row across panels, so image bottoms and titles line up.
     <figure className={`row-span-2 grid grid-rows-subgrid snap-start ${i % 2 ? "w-[min(82vw,46svh)]" : "w-[min(82vw,72svh)]"}`}>
-      <div className="self-end rounded-[1.75rem] bg-cream/[0.03] p-1.5 hairline">
+      <div className="self-end bezel rounded-bezel bg-cream/[0.03] p-1.5 hairline">
         <div
-          className={`relative overflow-hidden rounded-[calc(1.75rem-0.375rem)] ${i % 2 ? "aspect-[4/5]" : "aspect-[5/4]"}`}
+          className={`relative overflow-hidden bezel-core rounded-bezel-core ${i % 2 ? "aspect-[4/5]" : "aspect-[5/4]"}`}
         >
           <Image src={s.image} alt={text.title} fill quality={70} sizes="(min-width: 768px) 50vw, 82vw" className="object-cover" />
         </div>
@@ -95,7 +95,7 @@ export function Atmosphere() {
         className="group mt-10 inline-flex w-max items-center gap-3 text-sm text-cream transition-colors duration-500 ease-silk hover:text-gold-bright"
       >
         {t.link}
-        <span className="flex size-9 items-center justify-center rounded-full bg-cream/[0.06] hairline transition-transform duration-500 ease-silk group-hover:translate-x-0.5 group-hover:-translate-y-px">
+        <span className="flex size-9 items-center justify-center rounded-pill bg-cream/[0.06] hairline transition-transform duration-500 ease-silk group-hover:translate-x-0.5 group-hover:-translate-y-px">
           <ArrowUpRight size={14} weight="light" />
         </span>
       </Link>

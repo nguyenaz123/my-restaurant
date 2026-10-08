@@ -10,6 +10,7 @@ import { cn } from "@/lib/cn";
 import { cta, navLinks, site } from "@/lib/site";
 import { AddressLink } from "@/components/ui/address-link";
 import { LocaleMenu, LocaleRow } from "@/components/layout/locale-switcher";
+import { ThemeMenu, ThemeRow } from "@/components/layout/theme-switcher";
 import { useI18n } from "@/i18n/client";
 import { format } from "@/i18n/format";
 
@@ -64,7 +65,7 @@ export function SiteNav() {
       >
         <nav
           aria-label={dict.nav.mainLabel}
-          className="glass flex h-16 w-full max-w-6xl items-center justify-between gap-6 rounded-full bg-char/70 px-3 pl-4 inner-glow backdrop-blur-md md:backdrop-blur-2xl lg:w-max lg:max-w-none"
+          className="site-bar glass flex h-16 w-full max-w-6xl items-center justify-between gap-6 rounded-pill bg-char/70 px-3 pl-4 inner-glow backdrop-blur-md md:backdrop-blur-2xl lg:w-max lg:max-w-none"
         >
           <Monogram />
 
@@ -77,7 +78,7 @@ export function SiteNav() {
                   <Link
                     href={to}
                     className={cn(
-                      "relative z-10 block rounded-full px-4 py-2 text-sm transition-colors duration-500 ease-silk",
+                      "relative z-10 block rounded-pill px-4 py-2 text-sm transition-colors duration-500 ease-silk",
                       active ? "text-cream" : "text-smoke hover:text-cream",
                     )}
                   >
@@ -86,7 +87,7 @@ export function SiteNav() {
                   {active && (
                     <motion.span
                       layoutId="nav-active"
-                      className="absolute inset-0 rounded-full bg-cream/[0.07]"
+                      className="absolute inset-0 rounded-pill bg-cream/[0.07]"
                       transition={{ type: "spring", stiffness: 260, damping: 30 }}
                     />
                   )}
@@ -99,12 +100,13 @@ export function SiteNav() {
             <div className="hidden lg:block">
               <LocaleMenu />
             </div>
+            <ThemeMenu />
             <Link
               href={href(cta.reserve)}
-              className="group hidden items-center gap-2 rounded-full bg-gold py-1.5 pl-5 pr-1.5 text-sm font-medium text-obsidian transition-[transform,background-color] duration-500 ease-silk hover:bg-gold-bright active:scale-[0.98] sm:inline-flex"
+              className="btn btn-gold group hidden items-center gap-2 rounded-pill bg-gold py-1.5 pl-5 pr-1.5 text-sm font-medium text-obsidian transition-[transform,background-color] duration-500 ease-silk hover:bg-gold-bright active:scale-[0.98] sm:inline-flex"
             >
               {dict.cta.reserve}
-              <span className="flex size-8 items-center justify-center rounded-full bg-obsidian/10 transition-transform duration-500 ease-silk group-hover:translate-x-0.5 group-hover:-translate-y-px">
+              <span className="flex size-8 items-center justify-center rounded-pill bg-obsidian/10 transition-transform duration-500 ease-silk group-hover:translate-x-0.5 group-hover:-translate-y-px">
                 <ArrowUpRight size={14} weight="light" />
               </span>
             </Link>
@@ -115,7 +117,7 @@ export function SiteNav() {
               aria-expanded={open}
               aria-controls="mobile-menu"
               aria-label={open ? dict.nav.closeMenu : dict.nav.openMenu}
-              className="relative flex size-11 items-center justify-center rounded-full bg-cream/[0.06] hairline lg:hidden"
+              className="relative flex size-11 items-center justify-center rounded-pill bg-cream/[0.06] hairline lg:hidden"
             >
               <span
                 className={cn(
@@ -172,12 +174,13 @@ export function SiteNav() {
               className="flex flex-col gap-6"
             >
               <LocaleRow />
+              <ThemeRow />
               <Link
                 href={href(cta.reserve)}
-                className="inline-flex w-max items-center gap-3 rounded-full bg-gold py-2 pl-6 pr-2 font-medium text-obsidian"
+                className="inline-flex w-max items-center gap-3 rounded-pill bg-gold py-2 pl-6 pr-2 font-medium text-obsidian"
               >
                 {dict.cta.reserve}
-                <span className="flex size-9 items-center justify-center rounded-full bg-obsidian/10">
+                <span className="flex size-9 items-center justify-center rounded-pill bg-obsidian/10">
                   <ArrowUpRight size={16} weight="light" />
                 </span>
               </Link>

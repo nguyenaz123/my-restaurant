@@ -18,7 +18,7 @@ function RoomFeatures({ room }: { room: Room }) {
   return (
     <ul className="mt-5 flex flex-wrap gap-2">
       {dict.privateDining.rooms[room.id].features.map((f) => (
-        <li key={f} className="rounded-full bg-cream/[0.05] px-3 py-1.5 text-xs text-cream/80 hairline">
+        <li key={f} className="rounded-pill bg-cream/[0.05] px-3 py-1.5 text-xs text-cream/80 hairline">
           {f}
         </li>
       ))}
@@ -82,7 +82,7 @@ function RoomPhotos({ room, open, onOpenChange }: { room: Room; open: boolean; o
                   </div>
                   <Dialog.Close
                     aria-label={dict.common.close}
-                    className="flex size-12 shrink-0 items-center justify-center rounded-full bg-gold text-obsidian transition-transform duration-500 ease-silk hover:rotate-90 active:scale-95"
+                    className="flex size-12 shrink-0 items-center justify-center rounded-pill bg-gold text-obsidian transition-transform duration-500 ease-silk hover:rotate-90 active:scale-95"
                   >
                     <X size={18} weight="light" />
                   </Dialog.Close>
@@ -113,7 +113,7 @@ function RoomPhotos({ room, open, onOpenChange }: { room: Room; open: boolean; o
                       type="button"
                       onClick={() => step(-1)}
                       aria-label={dict.common.prev}
-                      className="flex size-12 items-center justify-center rounded-full bg-cream/[0.06] text-cream hairline transition-transform duration-500 ease-silk hover:-translate-x-0.5 active:scale-95"
+                      className="flex size-12 items-center justify-center rounded-pill bg-cream/[0.06] text-cream hairline transition-transform duration-500 ease-silk hover:-translate-x-0.5 active:scale-95"
                     >
                       <CaretLeft size={18} weight="light" />
                     </button>
@@ -121,7 +121,7 @@ function RoomPhotos({ room, open, onOpenChange }: { room: Room; open: boolean; o
                       type="button"
                       onClick={() => step(1)}
                       aria-label={dict.common.next}
-                      className="flex size-12 items-center justify-center rounded-full bg-cream/[0.06] text-cream hairline transition-transform duration-500 ease-silk hover:translate-x-0.5 active:scale-95"
+                      className="flex size-12 items-center justify-center rounded-pill bg-cream/[0.06] text-cream hairline transition-transform duration-500 ease-silk hover:translate-x-0.5 active:scale-95"
                     >
                       <CaretRight size={18} weight="light" />
                     </button>
@@ -164,7 +164,7 @@ export function RoomCard({ room, lead = false }: { room: Room; lead?: boolean })
   const cover = room.photos[0];
 
   const badge = (
-    <span className="absolute bottom-3 left-3 inline-flex items-center gap-2 rounded-full bg-obsidian/60 px-3 py-1.5 text-xs text-cream backdrop-blur-md hairline transition-colors duration-500 ease-silk group-hover:bg-gold group-hover:text-obsidian">
+    <span className="absolute bottom-3 left-3 inline-flex items-center gap-2 rounded-pill bg-obsidian/60 px-3 py-1.5 text-xs text-cream backdrop-blur-md hairline transition-colors duration-500 ease-silk group-hover:bg-gold group-hover:text-obsidian">
       <Images size={14} weight="light" />
       {format(t.photoCount, { n: room.photos.length })}
     </span>

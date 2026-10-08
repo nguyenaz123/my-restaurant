@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, CheckCircle, WarningCircle } from "@phosphor-icons/react";
@@ -15,6 +15,7 @@ import {
 } from "@/lib/reservation-schema";
 import { submitReservation } from "@/app/[lang]/private-dining/actions";
 import { cn } from "@/lib/cn";
+import { SelectField, type SelectOption } from "@/components/ui/select-field";
 import { localeMeta } from "@/i18n/config";
 import { useI18n } from "@/i18n/client";
 import { format } from "@/i18n/format";
@@ -23,7 +24,7 @@ import { splitAccent } from "@/i18n/rich";
 const ease = [0.32, 0.72, 0, 1] as const;
 
 const fieldBase =
-  "w-full rounded-2xl bg-obsidian/60 px-4 py-3.5 text-cream placeholder:text-smoke/70 hairline outline-none transition-shadow duration-500 ease-silk focus:shadow-[inset_0_0_0_1.5px_var(--color-gold)] aria-[invalid=true]:shadow-[inset_0_0_0_1.5px_#e0787a]";
+  "w-full rounded-field bg-obsidian/60 px-4 py-3.5 text-cream placeholder:text-smoke/70 hairline outline-none transition-shadow duration-500 ease-silk focus:shadow-[inset_0_0_0_1.5px_var(--color-gold)] aria-[invalid=true]:shadow-[inset_0_0_0_1.5px_var(--color-danger)]";
 
 function Field({
   id,
@@ -47,7 +48,7 @@ function Field({
       </label>
       {children}
       {error ? (
-        <p id={`${id}-error`} role="alert" className="text-sm text-[#f0a3a4]">
+        <p id={`${id}-error`} role="alert" className="text-sm text-danger">
           {error}
         </p>
       ) : helper ? (
@@ -69,6 +70,7 @@ export function ReservationForm() {
 
   const {
     register,
+    control,
     handleSubmit,
     reset,
     formState: { errors },
@@ -93,6 +95,36 @@ export function ReservationForm() {
   });
 
   const minDate = new Date().toISOString().slice(0, 10);
+
+  const options = useMemo(
+    () => ({
+      time: timeSlots.map((s) => ({ value: s, label: s })),
+      guests: Array.from({ length: 14 }, (_, i) => ({ value: String(i + 1), label: format(t.guestsOption, { n: i + 1 }) })),
+      seating: seatingOptions.map((s) => ({ value: s, label: t.seatingOptions[s] })),
+      occasion: occasionOptions.map((o) => ({ value: o, label: t.occasionOptions[o] })),
+    }),
+    [t],
+  );
+
+  /** A themed select bound to the form; validation and error wiring match the native inputs. */
+  const select = (name: "time" | "guests" | "seating" | "occasion", opts: readonly SelectOption[]) => (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => (
+        <SelectField
+          id={name}
+          name={field.name}
+          value={String(field.value ?? "")}
+          onValueChange={field.onChange}
+          onBlur={field.onBlur}
+          options={opts}
+          invalid={!!errors[name]}
+          describedBy={errors[name] ? `${name}-error` : undefined}
+        />
+      )}
+    />
+  );
 
   return (
     <AnimatePresence mode="wait">
@@ -144,7 +176,7 @@ export function ReservationForm() {
               setResult(null);
               reset();
             }}
-            className="mt-10 w-max rounded-full bg-cream/[0.06] px-6 py-3 text-sm text-cream hairline transition-colors duration-500 ease-silk hover:bg-cream/[0.12]"
+            className="mt-10 w-max rounded-pill bg-cream/[0.06] px-6 py-3 text-sm text-cream hairline transition-colors duration-500 ease-silk hover:bg-cream/[0.12]"
           >
             {t.another}
           </button>
@@ -177,43 +209,19 @@ export function ReservationForm() {
           </Field>
 
           <Field id="time" label={t.time} error={errors.time?.message}>
-            <select {...register("time")} {...aria("time")} className={fieldBase}>
-              {timeSlots.map((t) => (
-                <option key={t} value={t}>
-                  {t}
-                </option>
-              ))}
-            </select>
+            {select("time", options.time)}
           </Field>
 
           <Field id="guests" label={t.guests} error={errors.guests?.message}>
-            <select {...register("guests")} {...aria("guests")} className={fieldBase}>
-              {Array.from({ length: 14 }, (_, i) => i + 1).map((n) => (
-                <option key={n} value={n}>
-                  {format(t.guestsOption, { n })}
-                </option>
-              ))}
-            </select>
+            {select("guests", options.guests)}
           </Field>
 
           <Field id="seating" label={t.seating} error={errors.seating?.message}>
-            <select {...register("seating")} {...aria("seating")} className={fieldBase}>
-              {seatingOptions.map((s) => (
-                <option key={s} value={s}>
-                  {t.seatingOptions[s]}
-                </option>
-              ))}
-            </select>
+            {select("seating", options.seating)}
           </Field>
 
           <Field id="occasion" label={t.occasion} error={errors.occasion?.message} className="sm:col-span-2">
-            <select {...register("occasion")} {...aria("occasion")} className={fieldBase}>
-              {occasionOptions.map((o) => (
-                <option key={o} value={o}>
-                  {t.occasionOptions[o]}
-                </option>
-              ))}
-            </select>
+            {select("occasion", options.occasion)}
           </Field>
 
           <Field
@@ -227,8 +235,8 @@ export function ReservationForm() {
           </Field>
 
           {serverError && (
-            <p role="alert" className="flex items-start gap-3 rounded-2xl bg-wine/50 p-4 text-sm text-cream sm:col-span-2">
-              <WarningCircle size={20} weight="light" className="shrink-0 text-[#f0a3a4]" />
+            <p role="alert" className="flex items-start gap-3 rounded-field bg-wine/50 p-4 text-sm text-cream sm:col-span-2">
+              <WarningCircle size={20} weight="light" className="shrink-0 text-danger" />
               {serverError}
             </p>
           )}
@@ -238,7 +246,7 @@ export function ReservationForm() {
             <button
               type="submit"
               disabled={pending}
-              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-gold py-2 pl-6 pr-2 text-sm font-medium text-obsidian transition-[transform,background-color] duration-500 ease-silk hover:bg-gold-bright active:scale-[0.98] disabled:cursor-wait"
+              className="btn btn-gold group relative inline-flex items-center gap-3 overflow-hidden rounded-pill bg-gold py-2 pl-6 pr-2 text-sm font-medium text-obsidian transition-[transform,background-color] duration-500 ease-silk hover:bg-gold-bright active:scale-[0.98] disabled:cursor-wait"
             >
               {pending && (
                 <motion.span
@@ -250,7 +258,7 @@ export function ReservationForm() {
                 />
               )}
               <span className="relative">{pending ? t.sending : t.submit}</span>
-              <span className="relative flex size-9 items-center justify-center rounded-full bg-obsidian/10 transition-transform duration-500 ease-silk group-hover:translate-x-0.5 group-hover:-translate-y-px">
+              <span className="relative flex size-9 items-center justify-center rounded-pill bg-obsidian/10 transition-transform duration-500 ease-silk group-hover:translate-x-0.5 group-hover:-translate-y-px">
                 <ArrowUpRight size={16} weight="light" />
               </span>
             </button>

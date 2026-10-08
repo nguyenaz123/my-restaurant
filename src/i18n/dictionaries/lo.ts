@@ -21,6 +21,10 @@ const lo: Dictionary = {
     closeMenu: "ປິດເມນູ",
     language: "ພາສາ",
   },
+  theme: {
+    label: "ຮູບແບບ",
+    names: { ember: "Ember", retro: "ຄລາສສິກ", glass: "ແກ້ວຝ້າ", liquid: "Liquid Glass", neobrutal: "Neo-brutal", memphis: "Memphis" },
+  },
   languageGate: {
     title: "ຍິນດີຕ້ອນຮັບສູ່ *Ember & Age*",
     intro: "ທ່ານຕ້ອງການເບິ່ງເວັບໄຊເປັນພາສາໃດ? ທ່ານສາມາດປ່ຽນໄດ້ທຸກເວລາຈາກແຖບເມນູ.",

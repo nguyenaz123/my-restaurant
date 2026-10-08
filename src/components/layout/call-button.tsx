@@ -14,7 +14,7 @@ export function CallButton() {
     <motion.a
       href={site.phoneHref}
       aria-label={format(dict.contact.callAria, { phone: site.phone })}
-      className="group fixed bottom-5 right-5 z-20 flex items-center rounded-full bg-gold p-1.5 text-obsidian shadow-[0_18px_40px_-12px_rgba(197,160,89,0.55)] transition-colors duration-500 ease-silk hover:bg-gold-bright active:scale-[0.97] md:bottom-8 md:right-8"
+      className="group fixed bottom-5 right-5 z-20 flex items-center rounded-pill bg-gold p-1.5 text-obsidian shadow-[0_18px_40px_-12px_color-mix(in_oklab,var(--color-gold)_55%,transparent)] transition-colors duration-500 ease-silk hover:bg-gold-bright active:scale-[0.97] md:bottom-8 md:right-8"
       initial={reduce ? false : { opacity: 0, y: 24, scale: 0.8 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ type: "spring", stiffness: 200, damping: 20, delay: 1.2 }}
@@ -24,9 +24,9 @@ export function CallButton() {
           <span className="block pl-4 pr-2 text-sm font-medium">{site.phone}</span>
         </span>
       </span>
-      <span className="relative flex size-12 items-center justify-center rounded-full bg-obsidian/10">
+      <span className="relative flex size-12 items-center justify-center rounded-pill bg-obsidian/10">
         {!reduce && (
-          <span aria-hidden className="absolute inset-0 animate-ping rounded-full bg-gold/40 [animation-duration:2.4s]" />
+          <span aria-hidden className="absolute inset-0 animate-ping rounded-pill bg-gold/40 [animation-duration:2.4s]" />
         )}
         <Phone size={22} weight="light" className="relative" />
       </span>

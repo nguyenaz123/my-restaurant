@@ -20,9 +20,9 @@ export function WinePairing() {
 
   return (
     <section aria-labelledby="wine-title" className="px-2 pb-28 md:px-4 md:pb-40">
-      <div className="relative mx-auto max-w-[1600px] overflow-hidden rounded-[2rem] bg-wine-deep">
+      <div className="relative mx-auto max-w-[1600px] overflow-hidden rounded-panel bg-wine-deep">
         <Image src="/images/wine-cellar.jpg" alt="" fill quality={70} sizes="100vw" className="object-cover opacity-20" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(74,14,23,0.5),#2a080e_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,color-mix(in_oklab,var(--color-wine)_50%,transparent),var(--color-wine-deep)_70%)]" />
 
         <div className="relative mx-auto max-w-4xl px-6 py-24 text-center md:py-32">
           <h2 id="wine-title" className="font-display text-4xl font-light leading-[1.05] text-cream md:text-6xl">
@@ -41,7 +41,7 @@ export function WinePairing() {
                 aria-checked={idx === i}
                 onClick={() => setI(idx)}
                 className={cn(
-                  "rounded-full px-5 py-2.5 text-sm transition-all duration-500 ease-silk active:scale-[0.98]",
+                  "rounded-pill px-5 py-2.5 text-sm transition-all duration-500 ease-silk active:scale-[0.98]",
                   idx === i ? "bg-cream text-obsidian" : "bg-cream/[0.06] text-cream/80 hairline hover:bg-cream/[0.12]",
                 )}
               >

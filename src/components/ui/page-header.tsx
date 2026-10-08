@@ -55,8 +55,8 @@ export function PageHeader({ eyebrow, title, intro, image, imageAlt }: Props) {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.6, delay: 0.2, ease }}
         >
-          <div className="rounded-[1.75rem] bg-cream/[0.03] p-1.5 hairline">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[calc(1.75rem-0.375rem)] lg:aspect-[4/5]">
+          <div className="bezel rounded-bezel bg-cream/[0.03] p-1.5 hairline">
+            <div className="relative aspect-[4/3] overflow-hidden bezel-core rounded-bezel-core lg:aspect-[4/5]">
               <motion.div style={{ y }} className="absolute -inset-y-[8%] inset-x-0">
                 <Image src={image} alt={imageAlt} fill preload quality={70} sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" />
               </motion.div>

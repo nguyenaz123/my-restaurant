@@ -20,6 +20,10 @@ const zh: Dictionary = {
     closeMenu: "关闭菜单",
     language: "语言",
   },
+  theme: {
+    label: "风格",
+    names: { ember: "Ember", retro: "复古", glass: "毛玻璃", liquid: "液态玻璃", neobrutal: "新粗野主义", memphis: "孟菲斯" },
+  },
   languageGate: {
     title: "欢迎来到 *Ember & Age*",
     intro: "您想使用哪种语言浏览？您可以随时在菜单中更改。",

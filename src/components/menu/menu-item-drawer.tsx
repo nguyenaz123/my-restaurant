@@ -75,13 +75,13 @@ export function MenuItemDrawer({ item, image, open, onClose }: Props) {
             <Dialog.Content asChild forceMount aria-describedby={undefined}>
               <motion.aside
                 data-lenis-prevent
-                className="fixed inset-y-0 right-0 z-50 flex w-full max-w-xl flex-col overflow-y-auto bg-char p-2 shadow-[-40px_0_120px_-20px_rgba(13,13,13,0.9)] outline-none md:inset-y-3 md:right-3 md:rounded-[1.75rem] md:hairline"
+                className="fixed inset-y-0 right-0 z-50 flex w-full max-w-xl flex-col overflow-y-auto bg-char p-2 shadow-[-40px_0_120px_-20px_var(--color-shade)] outline-none md:inset-y-3 md:right-3 md:rounded-bezel md:hairline"
                 initial={{ x: "105%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "105%" }}
                 transition={{ duration: 0.8, ease }}
               >
-                <div className="relative aspect-[16/11] shrink-0 overflow-hidden rounded-[calc(1.75rem-0.5rem)]">
+                <div className="relative aspect-[16/11] shrink-0 overflow-hidden bezel-core rounded-bezel-core">
                   <motion.div
                     className="absolute inset-0"
                     initial={{ scale: 1.15 }}
@@ -92,7 +92,7 @@ export function MenuItemDrawer({ item, image, open, onClose }: Props) {
                   </motion.div>
                   <div className="absolute inset-0 bg-gradient-to-t from-char via-char/10 to-transparent" />
                   <Dialog.Close
-                    className="absolute right-3 top-3 flex size-11 items-center justify-center rounded-full bg-obsidian/60 text-cream backdrop-blur-md hairline transition-transform duration-500 ease-silk hover:rotate-90"
+                    className="absolute right-3 top-3 flex size-11 items-center justify-center rounded-pill bg-obsidian/60 text-cream backdrop-blur-md hairline transition-transform duration-500 ease-silk hover:rotate-90"
                     aria-label={dict.common.close}
                   >
                     <X size={18} weight="light" />
@@ -130,7 +130,7 @@ export function MenuItemDrawer({ item, image, open, onClose }: Props) {
                   </dl>
 
                   {cut && cutText && (
-                    <div className="rounded-[1.25rem] bg-wine/40 p-6 inner-glow">
+                    <div className="rounded-menu bg-wine/40 p-6 inner-glow">
                       <div className="flex items-center gap-3 text-gold-bright">
                         <Wine size={20} weight="light" />
                         <span className="text-xs uppercase tracking-[0.2em]">{t.sommelier}</span>

@@ -1,15 +1,28 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Noto_Sans_Lao, Noto_Serif_Lao, Plus_Jakarta_Sans } from "next/font/google";
+import {
+  Be_Vietnam_Pro,
+  Bricolage_Grotesque,
+  Cormorant_Garamond,
+  Lexend,
+  Lora,
+  Noto_Sans_Lao,
+  Noto_Serif_Lao,
+  Playfair_Display,
+  Plus_Jakarta_Sans,
+  Space_Grotesk,
+} from "next/font/google";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
 import { SiteNav } from "@/components/layout/site-nav";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { CallButton } from "@/components/layout/call-button";
 import { LanguageGate } from "@/components/layout/language-gate";
+import { ThemeSync } from "@/components/layout/theme-switcher";
 import { I18nProvider } from "@/i18n/client";
 import { localeMeta, locales } from "@/i18n/config";
 import { pageAlternates } from "@/i18n/metadata";
 import { getDictionary, getLocale } from "@/i18n/server";
 import { site } from "@/lib/site";
+import { themeColors, themeInitScript } from "@/lib/theme";
 import "../globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -30,6 +43,39 @@ const jakarta = Plus_Jakarta_Sans({
 // No preload: their unicode-range means only Lao pages download them.
 const laoSerif = Noto_Serif_Lao({ variable: "--font-lao-serif", subsets: ["lao"], display: "swap", preload: false });
 const laoSans = Noto_Sans_Lao({ variable: "--font-lao-sans", subsets: ["lao"], display: "swap", preload: false });
+
+// Faces for the alternate themes. Not preloaded: the browser only fetches a face once the
+// active `data-theme` puts it in use, so visitors on the default theme download none of them.
+// (next/font only accepts literal options, hence the repetition.)
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin", "vietnamese"],
+  style: ["normal", "italic"],
+  display: "swap",
+  preload: false,
+}); // retro
+const lora = Lora({ variable: "--font-lora", subsets: ["latin", "vietnamese"], display: "swap", preload: false }); // retro
+const lexend = Lexend({ variable: "--font-lexend", subsets: ["latin", "vietnamese"], display: "swap", preload: false }); // glass
+const beVietnam = Be_Vietnam_Pro({
+  variable: "--font-be-vietnam",
+  subsets: ["latin", "vietnamese"],
+  weight: ["300", "400", "500", "600"],
+  display: "swap",
+  preload: false,
+}); // liquid
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  subsets: ["latin", "vietnamese"],
+  display: "swap",
+  preload: false,
+}); // neobrutal
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin", "vietnamese"],
+  display: "swap",
+  preload: false,
+}); // memphis
+const themeFontVars = [playfair, lora, lexend, beVietnam, spaceGrotesk, bricolage].map((f) => f.variable).join(" ");
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -62,8 +108,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0d0d0d",
-  colorScheme: "dark",
+  themeColor: themeColors.ember,
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
@@ -106,16 +151,22 @@ export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
   return (
     <html
       lang={localeMeta[locale].htmlLang}
-      className={`${cormorant.variable} ${jakarta.variable} ${laoSerif.variable} ${laoSans.variable}`}
+      className={`${cormorant.variable} ${jakarta.variable} ${laoSerif.variable} ${laoSans.variable} ${themeFontVars}`}
+      // themeInitScript sets data-theme before hydration, so the server markup can't match it.
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="grain min-h-svh bg-obsidian">
+        <ThemeSync />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
         />
         <a
           href="#main"
-          className="sr-only z-50 rounded-full bg-gold px-4 py-2 text-obsidian focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+          className="sr-only z-50 rounded-pill bg-gold px-4 py-2 text-obsidian focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
         >
           {dict.meta.skipLink}
         </a>
