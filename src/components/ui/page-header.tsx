@@ -50,7 +50,7 @@ export function PageHeader({ eyebrow, title, intro, image, imageAlt, orientation
   });
 
   return (
-    <section ref={ref} className="relative overflow-hidden pb-20 pt-32 md:pb-28 md:pt-40">
+    <section ref={ref} className="relative overflow-hidden pb-20 pt-clear-32 md:pb-28 md:pt-clear-40">
       <div className="mx-auto grid max-w-[1400px] items-end gap-12 px-4 md:px-10 lg:grid-cols-12">
         <div className="lg:col-span-6">
           <motion.div {...enter(0.1)}>

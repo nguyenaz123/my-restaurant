@@ -63,6 +63,9 @@
   html {
     color-scheme: dark;
     background: var(--color-obsidian);
+    /* Anchor jumps stop below the fixed nav (and the iOS status bar in home-screen mode).
+       Lenis reads this too, so native and smooth scrolling agree. */
+    scroll-padding-top: calc(6rem + env(safe-area-inset-top));
   }
 
   body {
@@ -137,6 +140,11 @@
 }
 @utility bottom-safe-* {
   bottom: max(--spacing(--value(number)), env(safe-area-inset-bottom));
+}
+/* Top padding for content that must clear the fixed nav: the spacing step plus the
+   status-bar inset, since the nav itself moves down by that inset. */
+@utility pt-clear-* {
+  padding-top: calc(--spacing(--value(number)) + env(safe-area-inset-top));
 }
 
 /* Edge strengths are variables so a theme can turn a faint glow into a printed rule. */

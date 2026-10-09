@@ -33,7 +33,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
   const reduce = useReducedMotion();
   if (reduce) return <>{children}</>;
   return (
-    <ReactLenis root options={{ lerp: 0.09, smoothWheel: true, autoRaf: false, anchors: { offset: -96 } }}>
+    <ReactLenis root options={{ lerp: 0.09, smoothWheel: true, autoRaf: false, anchors: true }}>
       <MotionFrameSync />
       <RouteReset />
       {children}

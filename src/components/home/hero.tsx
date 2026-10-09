@@ -54,7 +54,7 @@ export function Hero() {
 
       <motion.div
         style={{ y: contentY, opacity: fade }}
-        className="relative mx-auto w-full max-w-[1400px] px-4 pb-16 pt-32 md:px-10 md:pb-24"
+        className="relative mx-auto w-full max-w-[1400px] px-4 pb-16 pt-clear-32 md:px-10 md:pb-24"
       >
         <div className="max-w-2xl">
           <motion.div {...item(0.2)}>
