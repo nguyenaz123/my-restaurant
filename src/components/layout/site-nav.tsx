@@ -59,7 +59,7 @@ export function SiteNav() {
   return (
     <>
       <motion.header
-        className="fixed inset-x-0 top-0 z-40 flex justify-center px-4 pt-[max(1rem,env(safe-area-inset-top))] md:pt-[max(1.5rem,env(safe-area-inset-top))]"
+        className="fixed inset-x-0 top-0 z-40 flex justify-center px-4 pt-safe-4 md:pt-safe-6"
         animate={{ y: hidden && !open ? -120 : 0 }}
         transition={{ duration: 0.7, ease }}
       >
@@ -140,7 +140,7 @@ export function SiteNav() {
         {open && (
           <motion.div
             id="mobile-menu"
-            className="glass fixed inset-0 z-30 flex flex-col justify-between bg-obsidian/85 px-6 pb-10 pt-32 backdrop-blur-3xl lg:hidden"
+            className="glass fixed inset-0 z-30 flex flex-col justify-between bg-obsidian/85 px-6 pb-safe-10 pt-32 backdrop-blur-3xl lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.4, ease } }}

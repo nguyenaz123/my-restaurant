@@ -75,7 +75,7 @@ export function MenuItemDrawer({ item, image, open, onClose }: Props) {
             <Dialog.Content asChild forceMount aria-describedby={undefined}>
               <motion.aside
                 data-lenis-prevent
-                className="fixed inset-y-0 right-0 z-50 flex w-full max-w-xl flex-col overflow-y-auto bg-char p-2 shadow-[-40px_0_120px_-20px_var(--color-shade)] outline-none md:inset-y-3 md:right-3 md:rounded-bezel md:hairline"
+                className="fixed inset-y-0 right-0 z-50 flex w-full max-w-xl flex-col overflow-y-auto bg-char p-2 pt-safe-2 pb-safe-2 shadow-[-40px_0_120px_-20px_var(--color-shade)] outline-none md:inset-y-3 md:right-3 md:rounded-bezel md:hairline"
                 initial={{ x: "105%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "105%" }}

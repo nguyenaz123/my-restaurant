@@ -69,7 +69,7 @@ function RoomPhotos({ room, open, onOpenChange }: { room: Room; open: boolean; o
             <Dialog.Content forceMount asChild aria-describedby={undefined}>
               <motion.div
                 data-lenis-prevent
-                className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-5 p-4 outline-none md:p-10"
+                className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-5 p-4 pt-safe-4 pb-safe-4 outline-none md:p-10"
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}

@@ -127,7 +127,7 @@ export function MasonryGallery() {
               </Dialog.Overlay>
               <Dialog.Content forceMount asChild aria-describedby={undefined}>
                 <motion.div
-                  className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-6 p-4 outline-none md:p-12"
+                  className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-6 p-4 pt-safe-4 pb-safe-4 outline-none md:p-12"
                   initial={{ opacity: 0, scale: 0.98 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.98 }}

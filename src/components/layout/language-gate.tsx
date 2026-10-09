@@ -86,7 +86,7 @@ export function LanguageGate() {
                 ref={panel}
                 data-lenis-prevent
                 onClick={(e) => e.target === e.currentTarget && onOpenChange(false)}
-                className="fixed inset-0 z-[70] flex items-center justify-center overflow-y-auto p-4 outline-none"
+                className="fixed inset-0 z-[70] flex items-center justify-center overflow-y-auto p-4 pt-safe-4 pb-safe-4 outline-none"
               >
               <motion.div
                 className="w-full max-w-lg"

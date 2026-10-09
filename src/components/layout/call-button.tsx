@@ -14,7 +14,7 @@ export function CallButton() {
     <motion.a
       href={site.phoneHref}
       aria-label={format(dict.contact.callAria, { phone: site.phone })}
-      className="group fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-5 z-20 flex items-center rounded-pill bg-gold p-1.5 text-obsidian shadow-[0_18px_40px_-12px_color-mix(in_oklab,var(--color-gold)_55%,transparent)] transition-colors duration-500 ease-silk hover:bg-gold-bright active:scale-[0.97] md:bottom-8 md:right-8"
+      className="group fixed bottom-safe-5 right-5 z-20 flex items-center rounded-pill bg-gold p-1.5 text-obsidian shadow-[0_18px_40px_-12px_color-mix(in_oklab,var(--color-gold)_55%,transparent)] transition-colors duration-500 ease-silk hover:bg-gold-bright active:scale-[0.97] md:bottom-8 md:right-8"
       initial={reduce ? false : { opacity: 0, y: 24, scale: 0.8 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ type: "spring", stiffness: 200, damping: 20, delay: 1.2 }}

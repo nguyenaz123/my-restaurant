@@ -120,6 +120,25 @@
   text-wrap: balance;
 }
 
+/*
+  Safe-area spacing for fixed layers. Saved to an iPhone home screen the site runs
+  under a translucent status bar (viewport-fit=cover), so anything pinned to the top or
+  bottom edge takes the larger of its normal spacing and the notch / home-indicator inset.
+  `pt-safe-4` = max(1rem, inset-top). In a browser tab the insets are 0, so nothing moves.
+*/
+@utility pt-safe-* {
+  padding-top: max(--spacing(--value(number)), env(safe-area-inset-top));
+}
+@utility pb-safe-* {
+  padding-bottom: max(--spacing(--value(number)), env(safe-area-inset-bottom));
+}
+@utility top-safe-* {
+  top: max(--spacing(--value(number)), env(safe-area-inset-top));
+}
+@utility bottom-safe-* {
+  bottom: max(--spacing(--value(number)), env(safe-area-inset-bottom));
+}
+
 /* Edge strengths are variables so a theme can turn a faint glow into a printed rule. */
 :root {
   --edge-hairline: 9%;
