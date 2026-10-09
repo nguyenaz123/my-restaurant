@@ -12,13 +12,13 @@ import type { Theme } from "@/lib/theme";
 */
 const vi = {
   meta: {
-    title: "Steakhouse bò ủ khô & lửa than tại Sài Gòn",
+    title: "Steakhouse bò ủ khô & lửa than tại Viêng Chăn",
     description:
-      "Steakhouse bò ủ khô 30 - 90 ngày, nướng trên than gỗ nhãn tại Quận 1, Sài Gòn. Wagyu A5, Black Angus Dry-Aged và hầm rượu 400 nhãn.",
-    keywords: ["steakhouse Sài Gòn", "bò ủ khô", "dry-aged steak", "Wagyu A5", "nhà hàng bít tết Quận 1", "phòng ăn riêng"],
+      "Steakhouse bò ủ khô 30 - 90 ngày, nướng trên than gỗ nhãn bên quảng trường Nam Phou, Viêng Chăn. Wagyu A5, Black Angus Dry-Aged và hầm rượu 400 nhãn.",
+    keywords: ["steakhouse Viêng Chăn", "bò ủ khô", "dry-aged steak", "Wagyu A5", "nhà hàng bít tết Lào", "phòng ăn riêng Viêng Chăn"],
     skipLink: "Bỏ qua đến nội dung",
   },
-  format: { thousands: ".", currency: "{n}₫", from: "từ {price}" },
+  format: { thousands: ".", currency: "{n} kíp", from: "từ {price}" },
   nav: {
     home: "Trang chủ",
     menu: "Thực đơn",
@@ -36,16 +36,16 @@ const vi = {
     names: { ember: "Ember", retro: "Cổ điển", glass: "Kính mờ", liquid: "Liquid Glass", neobrutal: "Neo-brutal", memphis: "Memphis" } satisfies Record<Theme, string>,
   },
   languageGate: {
-    title: "Chào mừng đến *Ember & Age*",
+    title: "Chào mừng đến *Beige Tau*",
     intro: "Bạn muốn xem trang bằng ngôn ngữ nào? Bạn có thể đổi lại bất cứ lúc nào ở thanh menu.",
     close: "Đóng, giữ tiếng Việt",
     current: "Đang xem",
   },
   cta: { reserve: "Đặt bàn", menu: "Xem thực đơn" },
   contact: {
-    street: "26 Đông Du, Phường Bến Nghé",
-    area: "Quận 1, TP. Hồ Chí Minh",
-    addressShort: "26 Đông Du, Quận 1, TP. Hồ Chí Minh",
+    street: "26 Quảng trường Nam Phou, đường Setthathirath",
+    area: "Bản Xiengyeun, huyện Chanthabouly, Viêng Chăn, Lào",
+    addressShort: "26 Quảng trường Nam Phou, Viêng Chăn",
     directionsAria: "Chỉ đường đến {address}",
     directions: "Chỉ đường trên Google Maps",
     callAria: "Gọi nhà hàng {phone}",
@@ -302,7 +302,7 @@ const vi = {
   gallery: {
     meta: {
       title: "Không gian & Bộ sưu tập",
-      description: "Kiến trúc, phòng tiệc riêng và ánh sáng tại Ember & Age: gỗ óc chó, đá bazan, đồng thau và lò than ở trung tâm.",
+      description: "Kiến trúc, phòng tiệc riêng và ánh sáng tại Beige Tau: gỗ óc chó, đá bazan, đồng thau và lò than ở trung tâm.",
     },
     eyebrow: "Ambiance",
     title: "Nơi bóng tối *giữ lấy ánh lửa*",
@@ -320,7 +320,7 @@ const vi = {
     meta: {
       title: "Phòng riêng & Đặt bàn",
       description:
-        "Đặt bàn và phòng ăn riêng tại Ember & Age: The Cellar Room tối đa 14 khách, The Ember Room và Chef's Counter. 26 Đông Du, Quận 1.",
+        "Đặt bàn và phòng ăn riêng tại Beige Tau: The Cellar Room tối đa 14 khách, The Ember Room và Chef's Counter. 26 Quảng trường Nam Phou, Viêng Chăn.",
     },
     eyebrow: "Private Dining",
     title: "Đóng cửa lại, *để bữa tối là của riêng bạn*",
@@ -362,7 +362,7 @@ const vi = {
     occasion: "Dịp đặc biệt",
     notes: "Ghi chú",
     notesHelper: "Dị ứng thực phẩm, độ chín mong muốn hoặc yêu cầu trang trí.",
-    placeholders: { name: "Nguyễn Minh Khang", phone: "0903 412 587", email: "khang@email.vn" },
+    placeholders: { name: "Nguyễn Minh Khang", phone: "+84 903 412 587", email: "khang@email.vn" },
     seatingOptions: {
       main: "Phòng ăn chính",
       cellar: "The Cellar Room",
@@ -387,7 +387,7 @@ const vi = {
     errors: {
       invalid: "Thông tin chưa hợp lệ, vui lòng kiểm tra lại các trường được đánh dấu.",
       name: "Vui lòng nhập họ tên.",
-      phone: "Số điện thoại chưa hợp lệ, ví dụ 0903 412 587 hoặc +856 20 5551 2345.",
+      phone: "Số điện thoại chưa hợp lệ, ví dụ 020 5551 2345 hoặc +84 903 412 587.",
       email: "Email chưa đúng định dạng.",
       dateRequired: "Vui lòng chọn ngày.",
       datePast: "Ngày đặt phải từ hôm nay trở đi.",

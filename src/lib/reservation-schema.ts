@@ -8,8 +8,8 @@ export const timeSlots = ["17:30", "18:00", "18:30", "19:00", "19:30", "20:00", 
 export type SeatingId = (typeof seatingOptions)[number];
 export type OccasionId = (typeof occasionOptions)[number];
 
-/** Vietnamese mobile (0xx / +84xx), or any other international number in +country form. */
-const PHONE = /^(?:(?:\+?84|0)(?:3|5|7|8|9)\d{8}|\+(?!84)\d{7,14})$/;
+/** Lao number (020 / 030 mobile, 021 Vientiane landline; 0 or +856 prefix), or any other international number in +country form. */
+const PHONE = /^(?:(?:\+?856|0)(?:20\d{8}|30\d{7}|21\d{6})|\+(?!856)\d{7,14})$/;
 
 export type ReservationMessages = {
   name: string;

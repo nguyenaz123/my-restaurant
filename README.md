@@ -1,4 +1,4 @@
-# Ember & Age - Steakhouse website
+# Beige Tau - Steakhouse website
 
 Next.js 16 (App Router) + Tailwind CSS v4 + Motion + Lenis. Concept: "The Art of Fire & Time".
 
@@ -12,7 +12,7 @@ npm run build && npm start
 
 Trang có 4 ngôn ngữ: Tiếng Việt (`/vi`, mặc định), English (`/en`), ລາວ (`/lo`), 简体中文 (`/zh`). Truy cập `/` sẽ được chuyển tới ngôn ngữ đã chọn trước đó (cookie `NEXT_LOCALE`) hoặc theo ngôn ngữ trình duyệt.
 
-Đặt `NEXT_PUBLIC_SITE_URL` (ví dụ `https://emberandage.vn`) để canonical URL, Open Graph, sitemap và JSON-LD dùng đúng tên miền.
+Đặt `NEXT_PUBLIC_SITE_URL` (ví dụ `https://beigetau.la`) để canonical URL, Open Graph, sitemap và JSON-LD dùng đúng tên miền.
 
 ## Cấu trúc
 

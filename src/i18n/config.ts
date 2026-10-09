@@ -1,11 +1,11 @@
 /**
  * Locale registry. Safe to import from the proxy, server and client code.
- * Every route lives under `/[lang]`; `defaultLocale` is the fallback when the
- * browser's Accept-Language matches nothing we support.
+ * Every route lives under `/[lang]`; visitors without a NEXT_LOCALE cookie land
+ * on `defaultLocale` (Lao) and pick another language from the first-visit popup.
  */
-export const locales = ["vi", "en", "lo", "zh"] as const;
+export const locales = ["lo", "vi", "en", "zh"] as const;
 export type Locale = (typeof locales)[number];
-export const defaultLocale: Locale = "vi";
+export const defaultLocale: Locale = "lo";
 
 /** Cookie written by the language switcher; it wins over Accept-Language. */
 export const LOCALE_COOKIE = "NEXT_LOCALE";

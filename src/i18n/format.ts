@@ -4,7 +4,7 @@ export function format(template: string, vars: Record<string, string | number>) 
 }
 
 /**
- * VND price with the dictionary's separator and pattern. Done by hand rather than
+ * Kip (LAK) price with the dictionary's separator and pattern. Done by hand rather than
  * with Intl.NumberFormat because Node and browsers ship different ICU data, which
  * changes spacing characters and breaks hydration.
  */

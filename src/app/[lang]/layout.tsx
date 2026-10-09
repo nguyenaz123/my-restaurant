@@ -103,12 +103,18 @@ export async function generateMetadata(): Promise<Metadata> {
       description: dict.meta.description,
     },
     twitter: { card: "summary_large_image" },
+    // "Add to Home Screen" on iOS: full-screen launch, own name and icon (the manifest covers Android).
+    appleWebApp: { capable: true, title: site.name, statusBarStyle: "black-translucent" },
+    icons: { apple: "/apple-touch-icon.png" },
+    formatDetection: { telephone: false },
     robots: { index: true, follow: true },
   };
 }
 
 export const viewport: Viewport = {
   themeColor: themeColors.ember,
+  // Lets the page run under the translucent iOS status bar; fixed chrome pads itself with safe-area insets.
+  viewportFit: "cover",
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
@@ -126,7 +132,7 @@ export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
     telephone: site.phone,
     email: site.email,
     servesCuisine: ["Steakhouse", "Dry-aged beef", "Wagyu"],
-    priceRange: "₫₫₫₫",
+    priceRange: "₭₭",
     acceptsReservations: true,
     menu: `${site.url}/${locale}/menu`,
     address: {

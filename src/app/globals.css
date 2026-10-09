@@ -2,7 +2,7 @@
 @import "lenis/dist/lenis.css";
 
 /*
-  Ember & Age design tokens.
+  Beige Tau design tokens.
   The default theme ("ember") is dark: obsidian + firelight. Other themes
   (see src/lib/theme.ts) re-map these same tokens under `html[data-theme]`
   further down, so components never branch on the theme. Token roles:

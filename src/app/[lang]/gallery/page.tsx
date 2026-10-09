@@ -21,6 +21,7 @@ export default async function GalleryPage() {
         intro={t.intro}
         image="/images/dining-room.jpg"
         imageAlt={dict.images["dining-room"]}
+        orientation="portrait"
       />
       <MasonryGallery />
     </>

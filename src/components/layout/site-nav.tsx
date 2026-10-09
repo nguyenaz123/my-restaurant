@@ -21,10 +21,10 @@ function Monogram() {
   return (
     <Link href={href("/")} className="group flex items-center gap-3 pr-2" aria-label={format(dict.nav.homeAria, { name: site.name })}>
       <span className="flex size-9 items-center justify-center rounded-full bg-gold/15 font-display text-lg italic text-gold-bright hairline transition-transform duration-700 ease-silk group-hover:rotate-[-8deg]">
-        E
+        B
       </span>
       <span className="font-display text-xl tracking-wide text-cream">
-        Ember <span className="italic text-gold">&amp;</span> Age
+        Beige <span className="italic text-gold">Tau</span>
       </span>
     </Link>
   );
@@ -59,7 +59,7 @@ export function SiteNav() {
   return (
     <>
       <motion.header
-        className="fixed inset-x-0 top-0 z-40 flex justify-center px-4 pt-4 md:pt-6"
+        className="fixed inset-x-0 top-0 z-40 flex justify-center px-4 pt-[max(1rem,env(safe-area-inset-top))] md:pt-[max(1.5rem,env(safe-area-inset-top))]"
         animate={{ y: hidden && !open ? -120 : 0 }}
         transition={{ duration: 0.7, ease }}
       >

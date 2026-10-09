@@ -8,6 +8,7 @@ import { RoomCard } from "@/components/private-dining/room-card";
 import { rooms } from "@/lib/data";
 import { site } from "@/lib/site";
 import { format } from "@/i18n/format";
+import { localeMeta } from "@/i18n/config";
 import { Rich } from "@/i18n/rich";
 import { pageAlternates } from "@/i18n/metadata";
 import { getDictionary, getLocale } from "@/i18n/server";
@@ -19,6 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function PrivateDiningPage() {
   const dict = await getDictionary();
+  const locale = await getLocale();
   const t = dict.privateDining;
   const [lead, ...others] = rooms;
 
@@ -28,8 +30,8 @@ export default async function PrivateDiningPage() {
         eyebrow={t.eyebrow}
         title={<Rich text={t.title} />}
         intro={t.intro}
-        image="/images/table-setting.jpg"
-        imageAlt={dict.images["table-setting"]}
+        image="/images/napkin-table.jpg"
+        imageAlt={dict.images["napkin-table"]}
       />
 
       <section aria-labelledby="rooms-title" className="py-20 md:py-28">
@@ -64,11 +66,17 @@ export default async function PrivateDiningPage() {
             <ul className="mt-10 space-y-6 text-sm">
               <li className="flex gap-4">
                 <MapPin size={22} weight="light" className="shrink-0 text-gold" />
-                <span className="text-cream/85">
+                <a
+                  href={site.mapsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={format(dict.contact.directionsAria, { address: dict.contact.addressShort })}
+                  className="text-cream/85 underline decoration-cream/20 underline-offset-4 transition-colors duration-500 ease-silk hover:text-gold-bright hover:decoration-gold-bright/60"
+                >
                   {dict.contact.street}
                   <br />
                   {dict.contact.area}
-                </span>
+                </a>
               </li>
               <li className="flex gap-4">
                 <Clock size={22} weight="light" className="shrink-0 text-gold" />
@@ -98,10 +106,10 @@ export default async function PrivateDiningPage() {
               <div className="relative aspect-[4/3] overflow-hidden bezel-core rounded-bezel-core bg-char">
                 <iframe
                   title={format(dict.contact.mapTitle, { name: site.name })}
-                  src={`https://maps.google.com/maps?q=${site.geo.lat},${site.geo.lng}&z=16&output=embed`}
+                  src={`${site.mapsEmbedUrl}&hl=${localeMeta[locale].htmlLang}`}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  className="absolute inset-0 size-full [filter:grayscale(1)_invert(0.92)_contrast(0.85)_sepia(0.25)]"
+                  className="absolute inset-0 size-full"
                 />
               </div>
             </div>

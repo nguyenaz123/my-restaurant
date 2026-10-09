@@ -141,7 +141,7 @@ function RoomPhotos({ room, open, onOpenChange }: { room: Room; open: boolean; o
                           i === index ? "opacity-100 ring-1 ring-gold" : "opacity-45 hover:opacity-80",
                         )}
                       >
-                        <Image src={imageSrc(p)} alt="" fill quality={50} sizes="96px" className="object-cover" />
+                        <Image src={imageSrc(p)} alt="" fill quality={70} sizes="96px" className="object-cover" />
                       </button>
                     </li>
                   ))}

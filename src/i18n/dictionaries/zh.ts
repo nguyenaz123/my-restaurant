@@ -2,12 +2,12 @@ import type { Dictionary } from "./vi";
 
 const zh: Dictionary = {
   meta: {
-    title: "西贡干式熟成牛排馆 · 炭火烧烤",
-    description: "位于西贡第一郡的牛排馆：牛肉干式熟成 30 至 90 天，以龙眼木炭烧烤。A5 和牛、干式熟成黑安格斯，酒窖藏酒 400 款。",
-    keywords: ["西贡牛排", "胡志明市牛排馆", "干式熟成牛排", "A5 和牛", "第一郡餐厅", "胡志明市私人包间"],
+    title: "万象干式熟成牛排馆 · 炭火烧烤",
+    description: "位于万象喷水池广场的牛排馆：牛肉干式熟成 30 至 90 天，以龙眼木炭烧烤。A5 和牛、干式熟成黑安格斯，酒窖藏酒 400 款。",
+    keywords: ["万象牛排", "老挝牛排馆", "干式熟成牛排", "A5 和牛", "喷水池广场餐厅", "万象私人包间"],
     skipLink: "跳到主要内容",
   },
-  format: { thousands: ",", currency: "{n} 越南盾", from: "{price} 起" },
+  format: { thousands: ",", currency: "{n} 基普", from: "{price} 起" },
   nav: {
     home: "首页",
     menu: "菜单",
@@ -25,16 +25,16 @@ const zh: Dictionary = {
     names: { ember: "Ember", retro: "复古", glass: "毛玻璃", liquid: "液态玻璃", neobrutal: "新粗野主义", memphis: "孟菲斯" },
   },
   languageGate: {
-    title: "欢迎来到 *Ember & Age*",
+    title: "欢迎来到 *Beige Tau*",
     intro: "您想使用哪种语言浏览？您可以随时在菜单中更改。",
     close: "关闭并继续使用中文",
     current: "当前语言",
   },
   cta: { reserve: "预订座位", menu: "查看菜单" },
   contact: {
-    street: "Đông Du 街 26 号，滨义坊",
-    area: "胡志明市第一郡",
-    addressShort: "胡志明市第一郡 Đông Du 街 26 号",
+    street: "塞塔提拉路喷水池广场 26 号",
+    area: "老挝万象占塔布里县香云村",
+    addressShort: "万象喷水池广场 26 号",
     directionsAria: "前往 {address} 的路线",
     directions: "在 Google 地图中查看路线",
     callAria: "致电餐厅 {phone}",
@@ -272,7 +272,7 @@ const zh: Dictionary = {
   gallery: {
     meta: {
       title: "空间与图集",
-      description: "Ember & Age 的建筑、私人包间与光影：胡桃木、玄武岩、黄铜，以及位于中央的炭火烤炉。",
+      description: "Beige Tau 的建筑、私人包间与光影：胡桃木、玄武岩、黄铜，以及位于中央的炭火烤炉。",
     },
     eyebrow: "空间",
     title: "让黑暗*留住火光*",
@@ -289,7 +289,7 @@ const zh: Dictionary = {
   privateDining: {
     meta: {
       title: "私人包间与订座",
-      description: "在 Ember & Age 预订座位或私人包间：The Cellar Room 最多 14 位，另有 The Ember Room 与 Chef's Counter。第一郡 Đông Du 街 26 号。",
+      description: "在 Beige Tau 预订座位或私人包间：The Cellar Room 最多 14 位，另有 The Ember Room 与 Chef's Counter。万象喷水池广场 26 号。",
     },
     eyebrow: "私人包间",
     title: "关上门，*今晚只属于您*",
@@ -355,7 +355,7 @@ const zh: Dictionary = {
     errors: {
       invalid: "部分信息无效，请检查标记的栏位。",
       name: "请输入您的姓名。",
-      phone: "电话号码无效，例如 +86 138 0013 8000 或 0903 412 587。",
+      phone: "电话号码无效，例如 +86 138 0013 8000 或 020 5551 2345。",
       email: "电子邮箱格式不正确。",
       dateRequired: "请选择日期。",
       datePast: "预订日期须为今天或之后。",

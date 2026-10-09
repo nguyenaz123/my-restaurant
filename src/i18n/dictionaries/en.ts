@@ -2,13 +2,13 @@ import type { Dictionary } from "./vi";
 
 const en: Dictionary = {
   meta: {
-    title: "Dry-aged steakhouse & charcoal fire in Saigon",
+    title: "Dry-aged steakhouse & charcoal fire in Vientiane",
     description:
-      "A steakhouse in District 1, Saigon: beef dry-aged 30 to 90 days and grilled over longan-wood charcoal. A5 Wagyu, dry-aged Black Angus and a 400-label wine cellar.",
-    keywords: ["Saigon steakhouse", "dry-aged steak", "A5 Wagyu", "Ho Chi Minh City steak", "District 1 restaurant", "private dining Saigon"],
+      "A steakhouse on Nam Phou Square, Vientiane: beef dry-aged 30 to 90 days and grilled over longan-wood charcoal. A5 Wagyu, dry-aged Black Angus and a 400-label wine cellar.",
+    keywords: ["Vientiane steakhouse", "dry-aged steak", "A5 Wagyu", "Laos steak", "Nam Phou restaurant", "private dining Vientiane"],
     skipLink: "Skip to content",
   },
-  format: { thousands: ",", currency: "{n} ₫", from: "from {price}" },
+  format: { thousands: ",", currency: "₭{n}", from: "from {price}" },
   nav: {
     home: "Home",
     menu: "Menu",
@@ -26,16 +26,16 @@ const en: Dictionary = {
     names: { ember: "Ember", retro: "Retro", glass: "Glassmorphism", liquid: "Liquid Glass", neobrutal: "Neo-brutal", memphis: "Memphis" },
   },
   languageGate: {
-    title: "Welcome to *Ember & Age*",
+    title: "Welcome to *Beige Tau*",
     intro: "Which language would you like to browse in? You can change it any time from the menu.",
     close: "Close and keep English",
     current: "Current",
   },
   cta: { reserve: "Book a table", menu: "View the menu" },
   contact: {
-    street: "26 Dong Du, Ben Nghe Ward",
-    area: "District 1, Ho Chi Minh City",
-    addressShort: "26 Dong Du, District 1, Ho Chi Minh City",
+    street: "26 Nam Phou Square, Setthathirath Road",
+    area: "Ban Xiengyeun, Chanthabouly, Vientiane, Laos",
+    addressShort: "26 Nam Phou Square, Vientiane",
     directionsAria: "Directions to {address}",
     directions: "Directions on Google Maps",
     callAria: "Call the restaurant on {phone}",
@@ -292,7 +292,7 @@ const en: Dictionary = {
   gallery: {
     meta: {
       title: "Ambiance & Gallery",
-      description: "Architecture, private dining and light at Ember & Age: walnut, basalt, brass and a charcoal grill at the centre.",
+      description: "Architecture, private dining and light at Beige Tau: walnut, basalt, brass and a charcoal grill at the centre.",
     },
     eyebrow: "Ambiance",
     title: "Where darkness *holds the firelight*",
@@ -310,7 +310,7 @@ const en: Dictionary = {
     meta: {
       title: "Private dining & Reservations",
       description:
-        "Book a table or a private room at Ember & Age: The Cellar Room for up to 14 guests, The Ember Room and the Chef's Counter. 26 Dong Du, District 1.",
+        "Book a table or a private room at Beige Tau: The Cellar Room for up to 14 guests, The Ember Room and the Chef's Counter. 26 Nam Phou Square, Vientiane.",
     },
     eyebrow: "Private Dining",
     title: "Close the door, *the evening is yours*",
@@ -352,7 +352,7 @@ const en: Dictionary = {
     occasion: "Occasion",
     notes: "Notes",
     notesHelper: "Allergies, preferred doneness or decoration requests.",
-    placeholders: { name: "Alex Morgan", phone: "+84 903 412 587", email: "alex@email.com" },
+    placeholders: { name: "Alex Morgan", phone: "+856 20 5551 2345", email: "alex@email.com" },
     seatingOptions: {
       main: "Main dining room",
       cellar: "The Cellar Room",
@@ -377,7 +377,7 @@ const en: Dictionary = {
     errors: {
       invalid: "Some details aren't valid. Please check the highlighted fields.",
       name: "Please enter your name.",
-      phone: "Please enter a valid phone number, e.g. 0903 412 587 or +856 20 5551 2345.",
+      phone: "Please enter a valid phone number, e.g. 020 5551 2345 or +44 7700 900123.",
       email: "Please enter a valid email address.",
       dateRequired: "Please choose a date.",
       datePast: "The date must be today or later.",

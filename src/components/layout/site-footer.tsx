@@ -21,10 +21,12 @@ export async function SiteFooter() {
         <div className="md:col-span-3 md:col-start-6">
           <h2 className="mb-4 text-xs uppercase tracking-[0.2em] text-smoke">{t.address}</h2>
           <address className="space-y-1 text-sm not-italic leading-relaxed text-cream/80">
-            <p>{dict.contact.street}</p>
-            <p>{dict.contact.area}</p>
+            <a href={site.mapsUrl} target="_blank" rel="noreferrer" className="block transition-colors duration-500 ease-silk hover:text-gold-bright">
+              <span className="block">{dict.contact.street}</span>
+              <span className="block">{dict.contact.area}</span>
+            </a>
             <p className="pt-2">
-              <a href={site.mapsUrl} target="_blank" rel="noreferrer" className="text-gold transition-colors duration-500 ease-silk hover:text-gold-bright">
+              <a href={site.directionsUrl} target="_blank" rel="noreferrer" className="text-gold transition-colors duration-500 ease-silk hover:text-gold-bright">
                 {dict.contact.directions}
               </a>
             </p>
@@ -90,7 +92,7 @@ export async function SiteFooter() {
         aria-hidden
         className="pointer-events-none select-none whitespace-nowrap px-4 pb-4 text-center font-display text-[19vw] leading-[0.8] text-cream/[0.035] md:text-[16vw]"
       >
-        Ember &amp; Age
+        Beige Tau
       </p>
     </footer>
   );

@@ -51,7 +51,7 @@ export type MenuItemId = (typeof menuItemIds)[number];
 
 export type MenuItem = {
   id: MenuItemId;
-  /** Price in VND. */
+  /** Price in LAK (kip). */
   price: number;
   /** Shown as "from {price}". */
   priceFrom?: boolean;
@@ -66,39 +66,39 @@ export const menu: Record<MenuCategory, { image: string; items: MenuItem[] }> = 
   wagyu: {
     image: "/images/medium-rare.jpg",
     items: [
-      { id: "tomahawk-a5", meta: "1.2 kg", price: 12_800_000, signature: true, cut: "tomahawk-a5" },
-      { id: "striploin-a5", meta: "200 g", price: 5_400_000, cut: "striploin-a5" },
-      { id: "wagyu-tartare", meta: "120 g", price: 1_450_000 },
-      { id: "wagyu-sando", price: 1_980_000 },
+      { id: "tomahawk-a5", meta: "1.2 kg", price: 2_950_000, signature: true, cut: "tomahawk-a5" },
+      { id: "striploin-a5", meta: "200 g", price: 1_250_000, cut: "striploin-a5" },
+      { id: "wagyu-tartare", meta: "120 g", price: 320_000 },
+      { id: "wagyu-sando", price: 390_000 },
     ],
   },
   angus: {
     image: "/images/raw-cuts.jpg",
     items: [
-      { id: "ribeye-60", meta: "450 g", price: 2_950_000, signature: true, cut: "ribeye-60" },
-      { id: "porterhouse-45", meta: "900 g", price: 4_600_000, cut: "porterhouse-45" },
-      { id: "tenderloin-90", meta: "250 g", price: 3_800_000, cut: "tenderloin-90" },
-      { id: "bavette-30", meta: "300 g", price: 1_350_000 },
+      { id: "ribeye-60", meta: "450 g", price: 690_000, signature: true, cut: "ribeye-60" },
+      { id: "porterhouse-45", meta: "900 g", price: 1_150_000, cut: "porterhouse-45" },
+      { id: "tenderloin-90", meta: "250 g", price: 790_000, cut: "tenderloin-90" },
+      { id: "bavette-30", meta: "300 g", price: 350_000 },
     ],
   },
   wine: {
     image: "/images/wine-cellar.jpg",
     items: [
-      { id: "opus-one", meta: "750 ml", price: 16_500_000, signature: true },
-      { id: "barolo", meta: "750 ml", price: 7_200_000 },
-      { id: "leoville-barton", meta: "750 ml", price: 9_800_000 },
-      { id: "grange", meta: "750 ml", price: 21_000_000 },
-      { id: "by-the-glass", meta: "125 ml", price: 420_000, priceFrom: true },
+      { id: "opus-one", meta: "750 ml", price: 3_900_000, signature: true },
+      { id: "barolo", meta: "750 ml", price: 1_650_000 },
+      { id: "leoville-barton", meta: "750 ml", price: 2_200_000 },
+      { id: "grange", meta: "750 ml", price: 4_800_000 },
+      { id: "by-the-glass", meta: "125 ml", price: 120_000, priceFrom: true },
     ],
   },
   sides: {
     image: "/images/potatoes-steak.jpg",
     items: [
-      { id: "echire-mash", price: 280_000, signature: true },
-      { id: "bone-marrow", price: 360_000 },
-      { id: "asparagus", price: 240_000 },
-      { id: "wild-mushrooms", price: 260_000 },
-      { id: "truffle-mac", price: 420_000 },
+      { id: "echire-mash", price: 75_000, signature: true },
+      { id: "bone-marrow", price: 95_000 },
+      { id: "asparagus", price: 65_000 },
+      { id: "wild-mushrooms", price: 70_000 },
+      { id: "truffle-mac", price: 110_000 },
     ],
   },
 };
