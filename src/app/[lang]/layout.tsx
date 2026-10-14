@@ -105,7 +105,13 @@ export async function generateMetadata(): Promise<Metadata> {
     twitter: { card: "summary_large_image" },
     // "Add to Home Screen" on iOS: full-screen launch, own name and icon (the manifest covers Android).
     appleWebApp: { capable: true, title: site.name, statusBarStyle: "black-translucent" },
-    icons: { apple: "/apple-touch-icon.png" },
+    icons: {
+      icon: [
+        { url: "/favicon.ico", sizes: "48x48", type: "image/png" },
+        { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      ],
+      apple: "/apple-touch-icon.png",
+    },
     formatDetection: { telephone: false },
     robots: { index: true, follow: true },
   };
