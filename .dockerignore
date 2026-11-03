@@ -1,0 +1,17 @@
+node_modules
+.next
+out
+build
+coverage
+.git
+.gitignore
+.netlify
+.vercel
+.env*
+*.tsbuildinfo
+next-env.d.ts
+npm-debug.log*
+Dockerfile
+.dockerignore
+.agents
+.claude

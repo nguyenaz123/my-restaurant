@@ -6,7 +6,7 @@
 export const site = {
   name: "Beige Tau",
   tagline: "The Art of Fire & Time",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://beigetau.la",
+  url: "https://sstechservice.online",
   phone: "+856 20 5888 7461",
   phoneHref: "tel:+8562058887461",
   email: "reserve@beigetau.la",
